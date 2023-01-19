@@ -1,0 +1,29 @@
+.SignInPage__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  gap: 15px;
+}
+.SignInnage__container input {
+  height: 30px;
+  border: 1px solid black;
+  width: 420px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.SignInPage__container p {
+  color: red;
+}
+.SignInPage__container button {
+  font-size: 26px;
+  background-color: rgb(263, 195, 0);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 20px;
+}
+.SignInPage__container button:hover {
+  color: white;
+}

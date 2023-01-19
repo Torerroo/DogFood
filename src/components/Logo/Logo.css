@@ -1,0 +1,13 @@
+.logo a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo img{
+  height: 100px;
+}
+.logo span{
+  font-size: 34px;
+  color: black;
+  font-weight: bold;
+}

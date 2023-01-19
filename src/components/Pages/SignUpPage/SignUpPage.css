@@ -1,0 +1,29 @@
+.SignUpPage__container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+  gap: 15px;
+}
+.SignUpPage__container input {
+  height: 30px;
+  border: 1px solid black;
+  width: 420px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.SignUpPage__container p {
+  color: red;
+}
+.SignUpPage__container button {
+  font-size: 26px;
+  background-color: rgb(263, 195, 0);
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 20px;
+}
+.SignUpPage__container button:hover {
+  color: white;
+}
