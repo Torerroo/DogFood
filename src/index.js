@@ -35,7 +35,6 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  // { basename: '/DogFood' },
 )
 
 root.render(
