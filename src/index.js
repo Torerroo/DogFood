@@ -29,13 +29,13 @@ const router = createBrowserRouter(
           element: <SignInPage />,
         },
         {
-          path: 'product',
+          path: 'products',
           element: <Products />,
         },
       ],
     },
   ],
-  // { basename: '/DogFood' },
+  { basename: '/DogFood' },
 )
 
 root.render(
