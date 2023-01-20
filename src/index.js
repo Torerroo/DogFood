@@ -10,32 +10,30 @@ import { Products } from './components/Products/Products'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <App />,
-      children: [
-        {
-          index: true,
-          element: <Main />,
-        },
-        {
-          path: 'signup',
-          element: <SignUpPage />,
-        },
-        {
-          path: 'signin',
-          element: <SignInPage />,
-        },
-        {
-          path: 'products',
-          element: <Products />,
-        },
-      ],
-    },
-  ],
-)
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Main />,
+      },
+      {
+        path: 'signup',
+        element: <SignUpPage />,
+      },
+      {
+        path: 'signin',
+        element: <SignInPage />,
+      },
+      {
+        path: 'products',
+        element: <Products />,
+      },
+    ],
+  },
+])
 
 root.render(
   <React.StrictMode>
