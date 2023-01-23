@@ -1,8 +1,12 @@
+import { useMutation } from '@tanstack/react-query'
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik'
-import * as Yup from 'yup'
 import './SignInPage.css'
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { validatorSignIn } from './validatorSignIn'
+import { TokenContext } from '../../Contexts/TokenContextProvider'
 
 const initialValues = {
   email: '',
@@ -10,20 +14,43 @@ const initialValues = {
 }
 
 export function SignInPage() {
+  const { setToken } = useContext(TokenContext)
+
+  const navigate = useNavigate()
+
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: (data) => fetch('https://api.react-learning.ru/signin', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.status >= 400 && res.status < 500) {
+        throw new Error(`Произошла ошибка при входе в Личный кабинет. 
+        Проверьте отправляемые данные. Status: ${res.status}`)
+      }
+
+      if (res.status >= 500) {
+        throw new Error(`Произошла ошибка при получении ответа от сервера. 
+        Попробуйте сделать запрос позже. Status: ${res.status}`)
+      }
+
+      return res.json()
+    }),
+  })
+
+  const submitHandler = async (values) => {
+    const response = await mutateAsync(values)
+    setToken(response.token)
+    navigate('/products')
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={Yup.object({
-        email: Yup.string()
-          .email('Invalid email address')
-          .required('Required'),
-        password: Yup.string()
-          .max(20, 'Must be 20 characters or less')
-          .required('Required'),
-      })}
-      onSubmit={(values) => {
-        console.log(values)
-      }}
+      validationSchema={validatorSignIn}
+      onSubmit={submitHandler}
     >
       <Form className="SignUpPage__container">
         <div>
@@ -34,7 +61,12 @@ export function SignInPage() {
           <Field name="password" type="text" placeholder="password here" />
           <ErrorMessage component="p" name="password" />
         </div>
-        <button type="submit">Авторизация</button>
+        <button disabled={isLoading} type="submit">Авторизация</button>
+        <div className="fs-4">
+          Если у вас еще нету аккаунта, то вам
+          {' '}
+          <Link to="/signup">Сюда</Link>
+        </div>
       </Form>
     </Formik>
   )

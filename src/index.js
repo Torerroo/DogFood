@@ -2,14 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import App from './App'
 import { Main } from './components/Main/Main'
 import { SignUpPage } from './components/Pages/SignUpPage/SignUpPage'
 import { SignInPage } from './components/Pages/SignInPage/SignInPage'
 import { Products } from './components/Products/Products'
+import { TokenContextProvider } from './components/Contexts/TokenContextProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-
+const queryClient = new QueryClient()
 const router = createBrowserRouter(
   [
     {
@@ -35,11 +37,15 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: '/DogFood' },
+  // { basename: '/DogFood' },
 )
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <TokenContextProvider>
+        <RouterProvider router={router} />
+      </TokenContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 )

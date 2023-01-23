@@ -1,32 +1,40 @@
+import { useMutation } from '@tanstack/react-query'
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik'
-import * as Yup from 'yup'
+import { useNavigate } from 'react-router-dom'
 import './SignUpPage.css'
+import { validatorSignUp } from './validatorSignUp'
 
 const initialValues = {
   email: '',
-  group: '',
+  group: 'sm9',
   password: '',
 }
 
 export function SignUpPage() {
+  const navigate = useNavigate()
+
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: (data) => fetch('https://api.react-learning.ru/signup', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }),
+  })
+
+  const SubmitHandler = async (values) => {
+    await mutateAsync(values)
+    navigate('/signin')
+  }
+
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={Yup.object({
-        email: Yup.string()
-          .email('Invalid email address')
-          .required('Required'),
-        group: Yup.string()
-          .required('Required'),
-        password: Yup.string()
-          .max(20, 'Must be 20 characters or less')
-          .required('Required'),
-      })}
-      onSubmit={(values) => {
-        console.log(values)
-      }}
+      validationSchema={validatorSignUp}
+      onSubmit={SubmitHandler}
     >
       <Form className="SignUpPage__container">
         <div>
@@ -41,7 +49,7 @@ export function SignUpPage() {
           <Field name="password" type="text" placeholder="password here" />
           <ErrorMessage component="p" name="password" />
         </div>
-        <button type="submit">Зарегистрироваться</button>
+        <button disabled={isLoading} type="submit">Зарегистрироваться</button>
       </Form>
     </Formik>
   )
