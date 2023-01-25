@@ -6,7 +6,7 @@ import './SignInPage.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { validatorSignIn } from './validatorSignIn'
-import { TokenContext } from '../../Contexts/TokenContextProvider'
+import { TokenContext } from '../Contexts/TokenContextProvider'
 
 const initialValues = {
   email: '',
@@ -35,7 +35,6 @@ export function SignInPage() {
         throw new Error(`Произошла ошибка при получении ответа от сервера. 
         Попробуйте сделать запрос позже. Status: ${res.status}`)
       }
-
       return res.json()
     }),
   })
@@ -43,7 +42,7 @@ export function SignInPage() {
   const submitHandler = async (values) => {
     const response = await mutateAsync(values)
     setToken(response.token)
-    navigate('/products')
+    setTimeout(() => navigate('/products'))
   }
 
   return (

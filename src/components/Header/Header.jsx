@@ -24,7 +24,7 @@ export function Header() {
           <button onClick={inputValueClear} type="button">&times;</button>
         </div>
         <div className="header__container-menu">
-          <Link to="./products">Товары</Link>
+          <Link to="./products">Каталог</Link>
           <Link to="./"><img src="https://s1.iconbird.com/ico/2013/3/637/w128h128139396832520.png" alt="icon" /></Link>
           <Link to="./"><img src="https://cdn-icons-png.flaticon.com/512/8/8109.png" alt="icon" /></Link>
           <Link to="./signup">Регистрация</Link>

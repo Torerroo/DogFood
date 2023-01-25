@@ -1,0 +1,28 @@
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.products__container {
+  padding: 0 15px;
+}
+.products__container-auth {
+  height: 20vh;
+  font-size: 24px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.products__container-head {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.products__container-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
