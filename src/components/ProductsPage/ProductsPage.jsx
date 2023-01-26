@@ -1,9 +1,32 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { useTokenContext } from '../../Contexts/TokenContextProvider'
-import { Loader } from '../Loader/Loader'
+import { withQuery } from '../HOCs/withQuery'
 import { ProductItem } from '../ProductItem/ProductItem'
 import './ProductsPage.css'
+
+function ProductsInner({ products }) {
+  if (products) {
+    return (
+      <section className="products">
+        <div className="products__container">
+          <h1 className="products__container-head">Все товары</h1>
+          <div className="products__container-content">
+            {products.map((product) => (
+              <ProductItem
+                // eslint-disable-next-line no-underscore-dangle
+                key={product._id}
+                product={product}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+}
+
+const ProductsInnerWithQuery = withQuery(ProductsInner)
 
 export function ProductsPage() {
   const { token } = useTokenContext()
@@ -23,7 +46,6 @@ export function ProductsPage() {
       </section>
     )
   }
-
   const { data: products, isLoading } = useQuery({
     queryKey: ['User', token],
     queryFn: () => fetch('https://api.react-learning.ru/products', {
@@ -44,31 +66,5 @@ export function ProductsPage() {
       return res.json()
     }).then((res) => res.products),
   })
-
-  if (isLoading) {
-    return (
-      <section className="products">
-        <Loader />
-      </section>
-    )
-  }
-
-  if (products) {
-    return (
-      <section className="products">
-        <div className="products__container">
-          <h1 className="products__container-head">Все товары</h1>
-          <div className="products__container-content">
-            {products.map((product) => (
-              <ProductItem
-                // eslint-disable-next-line no-underscore-dangle
-                key={product._id}
-                product={product}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
+  return <ProductsInnerWithQuery products={products} isLoading={isLoading} />
 }
