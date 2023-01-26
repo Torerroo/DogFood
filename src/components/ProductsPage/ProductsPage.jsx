@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { TokenContext } from '../Contexts/TokenContextProvider'
+import { useTokenContext } from '../../Contexts/TokenContextProvider'
+import { Loader } from '../Loader/Loader'
 import { ProductItem } from '../ProductItem/ProductItem'
 import './ProductsPage.css'
 
 export function ProductsPage() {
-  const { token } = useContext(TokenContext)
+  const { token } = useTokenContext()
 
   if (!token) {
     return (
@@ -24,7 +24,7 @@ export function ProductsPage() {
     )
   }
 
-  const { data: products } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ['User', token],
     queryFn: () => fetch('https://api.react-learning.ru/products', {
       headers: {
@@ -44,6 +44,14 @@ export function ProductsPage() {
       return res.json()
     }).then((res) => res.products),
   })
+
+  if (isLoading) {
+    return (
+      <section className="products">
+        <Loader />
+      </section>
+    )
+  }
 
   if (products) {
     return (

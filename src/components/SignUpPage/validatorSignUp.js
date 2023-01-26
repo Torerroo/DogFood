@@ -2,11 +2,11 @@ import * as Yup from 'yup'
 
 export const validatorSignUp = () => Yup.object({
   email: Yup.string()
-    .email('Invalid email address')
-    .required('Required'),
+    .email('Неверный адрес электронной почты')
+    .required('Обязательное поле'),
   group: Yup.string()
-    .required('Required'),
+    .required('Обязательное поле'),
   password: Yup.string()
-    .max(20, 'Must be 20 characters or less')
-    .required('Required'),
+    .max(20, 'Максимальное кол-во символом не должно превышать 20')
+    .required('Обязательное поле'),
 })

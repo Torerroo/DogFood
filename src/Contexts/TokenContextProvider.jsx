@@ -1,12 +1,14 @@
 import {
+  useContext,
   useMemo, useEffect, useState, createContext,
 } from 'react'
 
 export const TokenContext = createContext()
+
 export function TokenContextProvider({ children }) {
   const [token, setToken] = useState(() => {
     const tokenFromLS = localStorage.getItem('token')
-    return tokenFromLS || ''
+    return tokenFromLS ?? ''
   })
 
   useEffect(() => {
@@ -23,3 +25,5 @@ export function TokenContextProvider({ children }) {
     </TokenContext.Provider>
   )
 }
+
+export const useTokenContext = () => useContext(TokenContext)

@@ -4,9 +4,8 @@ import {
 } from 'formik'
 import './SignInPage.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
 import { validatorSignIn } from './validatorSignIn'
-import { TokenContext } from '../Contexts/TokenContextProvider'
+import { useTokenContext } from '../../Contexts/TokenContextProvider'
 
 const initialValues = {
   email: '',
@@ -14,7 +13,7 @@ const initialValues = {
 }
 
 export function SignInPage() {
-  const { setToken } = useContext(TokenContext)
+  const { setToken } = useTokenContext()
 
   const navigate = useNavigate()
 
@@ -57,7 +56,7 @@ export function SignInPage() {
           <ErrorMessage component="p" name="email" />
         </div>
         <div>
-          <Field name="password" type="text" placeholder="password here" />
+          <Field name="password" type="password" placeholder="password here" />
           <ErrorMessage component="p" name="password" />
         </div>
         <button disabled={isLoading} type="submit">Авторизация</button>

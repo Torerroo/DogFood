@@ -1,15 +1,14 @@
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
 import { Logo } from '../Logo/Logo'
-import { TokenContext } from '../Contexts/TokenContextProvider'
+import { useTokenContext } from '../../Contexts/TokenContextProvider'
 
 export function Header() {
   const navigate = useNavigate()
   function inputValueClear() {
     document.querySelector('.search-input').value = ''
   }
-  const { token, setToken } = useContext(TokenContext)
+  const { token, setToken } = useTokenContext()
 
   const logoutHandler = () => {
     setToken('')

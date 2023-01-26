@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 50px;
   gap: 15px;
 }
 .SignInnage__container input {
@@ -23,7 +22,7 @@
   background-color: rgb(263, 195, 0);
   border-radius: 8px;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .SignInPage__container button:hover {
   color: white;

@@ -8,7 +8,7 @@ import { Main } from './components/Main/Main'
 import { SignUpPage } from './components/SignUpPage/SignUpPage'
 import { SignInPage } from './components/SignInPage/SignInPage'
 import { ProductsPage } from './components/ProductsPage/ProductsPage'
-import { TokenContextProvider } from './components/Contexts/TokenContextProvider'
+import { TokenContextProvider } from './Contexts/TokenContextProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const queryClient = new QueryClient()
