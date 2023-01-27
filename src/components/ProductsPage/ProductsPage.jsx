@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { useTokenContext } from '../../Contexts/TokenContextProvider'
+import { dogFoodApi } from '../Api/DogFoodApi'
 import { withQuery } from '../HOCs/withQuery'
 import { ProductItem } from '../ProductItem/ProductItem'
 import './ProductsPage.css'
@@ -47,24 +48,8 @@ export function ProductsPage() {
     )
   }
   const { data: products, isLoading } = useQuery({
-    queryKey: ['User', token],
-    queryFn: () => fetch('https://api.react-learning.ru/products', {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      if (res.status >= 400 && res.status < 500) {
-        throw new Error(`Произошла ошибка при входе в Личный кабинет. 
-      Проверьте отправляемые данные. Status: ${res.status}`)
-      }
-
-      if (res.status >= 500) {
-        throw new Error(`Произошла ошибка при получении ответа от сервера. 
-      Попробуйте сделать запрос позже. Status: ${res.status}`)
-      }
-
-      return res.json()
-    }).then((res) => res.products),
+    queryKey: [token],
+    queryFn: () => dogFoodApi.getAllProducts().then((res) => res.products),
   })
   return <ProductsInnerWithQuery products={products} isLoading={isLoading} />
 }

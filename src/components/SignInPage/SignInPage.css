@@ -27,3 +27,8 @@
 .SignInPage__container button:hover {
   color: white;
 }
+.SignInPage-error {
+  color: red;
+  text-align: center;
+  font-size: 26px;
+}

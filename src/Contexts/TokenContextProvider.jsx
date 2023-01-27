@@ -2,6 +2,7 @@ import {
   useContext,
   useMemo, useEffect, useState, createContext,
 } from 'react'
+import { dogFoodApi } from '../components/Api/DogFoodApi'
 
 export const TokenContext = createContext()
 
@@ -13,6 +14,7 @@ export function TokenContextProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('token', token)
+    dogFoodApi.setToken(token)
   }, [token])
 
   const TokenValues = useMemo(() => ({

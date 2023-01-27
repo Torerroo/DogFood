@@ -20,19 +20,21 @@
       text-decoration: none;
       color: black;
       font-size: 18px;
+      justify-content: center;
     }
     .header__container a:hover {
       color: white;
     }
     .header__container-search {
       position: relative;
+      margin: 0 10px;
     }
     .header__container-search input {
       border: none;
       outline: none;
       border-radius: 8px;
       height: 50px;
-      width: 400px;
+      width: 25vw;
       padding: 0 10px;
       font-size: 16px;
     }
@@ -46,8 +48,11 @@
     .header__container-menu {
       display: flex;
       gap: 15px;
+      flex-wrap: wrap;
+      row-gap: 10px;
+      justify-content: right;
     }
     .header__container-menu img {
       width: 35px;
     }
-    ::-ms-clear { display: none; }
+    
