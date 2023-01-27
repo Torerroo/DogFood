@@ -33,7 +33,7 @@
       border-radius: 8px;
       height: 50px;
       width: 400px;
-      padding: 0 40px 0 10px;
+      padding: 0 10px;
       font-size: 16px;
     }
     .header__container-search button {
@@ -42,10 +42,6 @@
       background: white;
       right: 5px;
       top: 6px;
-      display: none;
-    }
-    .header__container-search:hover button {
-      display: block;
     }
     .header__container-menu {
       display: flex;
@@ -54,3 +50,4 @@
     .header__container-menu img {
       width: 35px;
     }
+    ::-ms-clear { display: none; }

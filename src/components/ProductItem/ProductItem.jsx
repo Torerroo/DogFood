@@ -2,20 +2,17 @@ import './ProductItem.css'
 
 export function ProductItem({ product }) {
   return (
-    <div className="products__content-item">
-      <img
-        src={product.pictures}
-        alt="product"
-      />
-      <h3>{product.name}</h3>
-      <div>
-        <p>{product.wight}</p>
-        <p>
+    <div className="product-item">
+      <img src={product.pictures} alt="product" />
+      <div className="product-list">
+        <h3>{product.name}</h3>
+        <span className="price">
+          ₽
+          {' '}
           {product.price}
-          руб
-        </p>
+        </span>
+        <button type="button">В корзину</button>
       </div>
-      <button type="button">Добавить в корзину</button>
     </div>
   )
 }

@@ -2,12 +2,12 @@ import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { Logo } from '../Logo/Logo'
 import { useTokenContext } from '../../Contexts/TokenContextProvider'
+import basket from './icons/basket.png'
+import favorite from './icons/favorite.png'
 
 export function Header() {
   const navigate = useNavigate()
-  function inputValueClear() {
-    document.querySelector('.search-input').value = ''
-  }
+
   const { token, setToken } = useTokenContext()
 
   const logoutHandler = () => {
@@ -19,13 +19,12 @@ export function Header() {
       <div className="header__container">
         <Logo />
         <div className="header__container-search">
-          <input className="search-input" type="text" placeholder="Поиск" />
-          <button onClick={inputValueClear} type="button">&times;</button>
+          <input className="search-input" type="search" placeholder="Поиск" />
         </div>
         <div className="header__container-menu">
           <Link to="./products">Каталог</Link>
-          <Link to="./"><img src="https://s1.iconbird.com/ico/2013/3/637/w128h128139396832520.png" alt="icon" /></Link>
-          <Link to="./"><img src="https://cdn-icons-png.flaticon.com/512/8/8109.png" alt="icon" /></Link>
+          <Link to="./"><img src={favorite} alt="icon" /></Link>
+          <Link to="./"><img src={basket} alt="icon" /></Link>
           <Link to="./signup">Регистрация</Link>
           <Link onClick={logoutHandler} to="./signin">{token ? 'Выход' : 'Вход'}</Link>
         </div>
