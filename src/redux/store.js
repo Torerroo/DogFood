@@ -5,5 +5,5 @@ export const store = configureStore({
   reducer: {
     token: tokenReducer,
   },
-  preloadedState: '12345',
+  preloadedState: '',
 })
