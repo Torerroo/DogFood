@@ -11,7 +11,7 @@ export function Footer() {
           <p>Ⓒ«Интернет-магазин DogFood.ru»</p>
         </div>
         <div className="footer__container-menu">
-          <Link to="./">Каталог</Link>
+          <Link to="./products">Каталог</Link>
           <Link to="./">Акции</Link>
           <Link to="./">Новости</Link>
           <Link to="./">Отзывы</Link>
