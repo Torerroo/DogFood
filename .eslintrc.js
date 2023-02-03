@@ -29,5 +29,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'react/jsx-filename-extension': 0,
     'react/jsx-no-constructed-context-values': 0,
+    'no-param-reassign': 0,
   },
 }

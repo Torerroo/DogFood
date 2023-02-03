@@ -1,3 +1,6 @@
+import { useSelector } from 'react-redux'
+import { getSearchSelector } from '../../redux/slices/filterSlice'
+
 class DogFoodApi {
   constructor({ baseURL }) {
     this.baseURL = baseURL
@@ -57,7 +60,8 @@ class DogFoodApi {
 
   async getAllProducts() {
     this.checkToken()
-    const res = await fetch(`${this.baseURL}/products`, {
+    const search = useSelector(getSearchSelector)
+    const res = await fetch(`${this.baseURL}/products?q=${search}`, {
       headers: {
         authorization: this.getAuthorizationHeader(),
       },

@@ -25,26 +25,6 @@
     .header__container a:hover {
       color: white;
     }
-    .header__container-search {
-      position: relative;
-      margin: 0 10px;
-    }
-    .header__container-search input {
-      border: none;
-      outline: none;
-      border-radius: 8px;
-      height: 50px;
-      width: 25vw;
-      padding: 0 10px;
-      font-size: 16px;
-    }
-    .header__container-search button {
-      position: absolute;
-      font-size: 30px;
-      background: white;
-      right: 5px;
-      top: 6px;
-    }
     .header__container-menu {
       display: flex;
       gap: 15px;

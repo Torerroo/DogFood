@@ -4,14 +4,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Logo } from '../Logo/Logo'
 import basket from './icons/basket.png'
 import favorite from './icons/favorite.png'
-import { getTokenSelector, setToken } from '../../redux/slices/getUserTokenSlice'
+import { getUserTokenSelector, setToken } from '../../redux/slices/getUserTokenSlice'
+import { Search } from '../Search/Search'
 
 export function Header() {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
-  const { token } = useSelector(getTokenSelector)
+  const { token } = useSelector(getUserTokenSelector)
 
   const logoutHandler = () => {
     navigate('/')
@@ -21,9 +22,7 @@ export function Header() {
     <section className="header">
       <div className="header__container">
         <Logo />
-        <div className="header__container-search">
-          <input className="search-input" type="search" placeholder="Поиск" />
-        </div>
+        <Search />
         <div className="header__container-menu">
           <Link to="./products">Каталог</Link>
           <Link to="./"><img src={favorite} alt="icon" /></Link>

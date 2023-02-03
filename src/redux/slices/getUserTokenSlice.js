@@ -1,21 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { initState } from '../initState'
 
-const getTokenSlice = createSlice({
+const getUserTokenSlice = createSlice({
   name: 'token',
-  initialState: {
-    token: '',
-  },
+  initialState: initState.token,
   reducers: {
     setToken(state, action) {
-      // eslint-disable-next-line no-param-reassign
       state.token = action.payload
       localStorage.setItem('token', state.token)
     },
   },
 })
 
-export const { setToken } = getTokenSlice.actions
+export const { setToken } = getUserTokenSlice.actions
 
-export const getTokenSelector = (state) => state.token
+export const getUserTokenSelector = (state) => state.token
 
-export const tokenReducer = getTokenSlice.reducer
+export const tokenReducer = getUserTokenSlice.reducer
