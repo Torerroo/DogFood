@@ -9,7 +9,6 @@ import { Main } from './components/Main/Main'
 import { SignUpPage } from './components/SignUpPage/SignUpPage'
 import { SignInPage } from './components/SignInPage/SignInPage'
 import { ProductsPage } from './components/ProductsPage/ProductsPage'
-import { TokenContextProvider } from './Contexts/TokenContextProvider'
 import { store } from './redux/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -46,9 +45,7 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <TokenContextProvider>
-          <RouterProvider router={router} />
-        </TokenContextProvider>
+        <RouterProvider router={router} />
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,

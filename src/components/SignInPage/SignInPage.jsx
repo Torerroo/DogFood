@@ -4,9 +4,10 @@ import {
 } from 'formik'
 import './SignInPage.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { validatorSignIn } from './validatorSignIn'
-import { useTokenContext } from '../../Contexts/TokenContextProvider'
 import { dogFoodApi } from '../Api/DogFoodApi'
+import { setToken } from '../../redux/slices/getUserTokenSlice'
 
 const initialValues = {
   email: '',
@@ -14,19 +15,21 @@ const initialValues = {
 }
 
 export function SignInPage() {
-  const { setToken } = useTokenContext()
-
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
   const {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
-    mutationFn: (values) => dogFoodApi.signIn(values),
+    mutationFn: (values) => dogFoodApi.signIn(values)
+      .then((res) => {
+        dispatch(setToken(res.token))
+        dogFoodApi.setToken(res.token)
+      }),
   })
 
   const submitHandler = async (values) => {
-    const response = await mutateAsync(values)
-    setToken(response.token)
+    await mutateAsync(values)
     setTimeout(() => navigate('/products'))
   }
 

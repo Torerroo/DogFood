@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useTokenContext } from '../../Contexts/TokenContextProvider'
+import { getTokenSelector } from '../../redux/slices/getUserTokenSlice'
 import { dogFoodApi } from '../Api/DogFoodApi'
 import { withQuery } from '../HOCs/withQuery'
 import { ProductItem } from '../ProductItem/ProductItem'
@@ -30,7 +31,7 @@ function ProductsInner({ products }) {
 const ProductsInnerWithQuery = withQuery(ProductsInner)
 
 export function ProductsPage() {
-  const { token } = useTokenContext()
+  const { token } = useSelector(getTokenSelector)
 
   if (!token) {
     return (

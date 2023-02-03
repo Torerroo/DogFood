@@ -1,18 +1,21 @@
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { Logo } from '../Logo/Logo'
-import { useTokenContext } from '../../Contexts/TokenContextProvider'
 import basket from './icons/basket.png'
 import favorite from './icons/favorite.png'
+import { getTokenSelector, setToken } from '../../redux/slices/getUserTokenSlice'
 
 export function Header() {
   const navigate = useNavigate()
 
-  const { token, setToken } = useTokenContext()
+  const dispatch = useDispatch()
+
+  const { token } = useSelector(getTokenSelector)
 
   const logoutHandler = () => {
-    setToken('')
     navigate('/')
+    dispatch(setToken(''))
   }
   return (
     <section className="header">
