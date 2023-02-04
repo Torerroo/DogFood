@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getSearchSelector } from '../../redux/slices/filterSlice'
 import { getUserTokenSelector } from '../../redux/slices/getUserTokenSlice'
-import { dogFoodApi } from '../Api/DogFoodApi'
+import { dogFoodApi } from '../../Api/DogFoodApi'
 import { withQuery } from '../HOCs/withQuery'
 import { ProductItem } from '../ProductItem/ProductItem'
 import './ProductsPage.css'
@@ -49,11 +49,12 @@ export function ProductsPage() {
       </section>
     )
   }
+
   const search = useSelector(getSearchSelector)
 
   const { data: products, isLoading } = useQuery({
     queryKey: ['GET_ALL_PRODUCTS', search],
-    queryFn: () => dogFoodApi.getAllProducts().then((res) => res.products),
+    queryFn: () => dogFoodApi.getAllProducts(search).then((res) => res.products),
   })
   return <ProductsInnerWithQuery products={products} isLoading={isLoading} />
 }

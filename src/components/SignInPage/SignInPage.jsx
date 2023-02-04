@@ -6,7 +6,7 @@ import './SignInPage.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { validatorSignIn } from './validatorSignIn'
-import { dogFoodApi } from '../Api/DogFoodApi'
+import { dogFoodApi } from '../../Api/DogFoodApi'
 import { setToken } from '../../redux/slices/getUserTokenSlice'
 
 const initialValues = {

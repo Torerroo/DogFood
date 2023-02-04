@@ -3,7 +3,7 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik'
 import { useNavigate } from 'react-router-dom'
-import { dogFoodApi } from '../Api/DogFoodApi'
+import { dogFoodApi } from '../../Api/DogFoodApi'
 import './SignUpPage.css'
 import { validatorSignUp } from './validatorSignUp'
 
