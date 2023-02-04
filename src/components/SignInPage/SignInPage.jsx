@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { validatorSignIn } from './validatorSignIn'
 import { dogFoodApi } from '../../Api/DogFoodApi'
-import { setToken } from '../../redux/slices/getUserTokenSlice'
+import { setToken } from '../../redux/slices/getTokenSlice'
 
 const initialValues = {
   email: '',

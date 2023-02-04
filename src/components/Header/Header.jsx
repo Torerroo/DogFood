@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Logo } from '../Logo/Logo'
 import basket from './icons/basket.png'
 import favorite from './icons/favorite.png'
-import { getUserTokenSelector, setToken } from '../../redux/slices/getUserTokenSlice'
+import { getUserTokenSelector, setToken } from '../../redux/slices/getTokenSlice'
 import { Search } from '../Search/Search'
 
 export function Header() {
