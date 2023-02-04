@@ -7,13 +7,12 @@ const getTokenSlice = createSlice({
   reducers: {
     setToken(state, action) {
       state.token = action.payload
-      localStorage.setItem('token', state.token)
     },
   },
 })
 
 export const { setToken } = getTokenSlice.actions
 
-export const getUserTokenSelector = (state) => state.token
+export const getTokenSelector = (state) => state.token
 
 export const tokenReducer = getTokenSlice.reducer

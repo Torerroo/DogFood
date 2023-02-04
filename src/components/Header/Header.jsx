@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Logo } from '../Logo/Logo'
 import basket from './icons/basket.png'
 import favorite from './icons/favorite.png'
-import { getUserTokenSelector, setToken } from '../../redux/slices/getTokenSlice'
+import { getTokenSelector, setToken } from '../../redux/slices/getTokenSlice'
 import { Search } from '../Search/Search'
 
 export function Header() {
@@ -12,7 +12,7 @@ export function Header() {
 
   const dispatch = useDispatch()
 
-  const { token } = useSelector(getUserTokenSelector)
+  const { token } = useSelector(getTokenSelector)
 
   const logoutHandler = () => {
     navigate('/')

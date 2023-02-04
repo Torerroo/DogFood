@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getSearchSelector } from '../../redux/slices/filterSlice'
-import { getUserTokenSelector } from '../../redux/slices/getTokenSlice'
+import { getTokenSelector } from '../../redux/slices/getTokenSlice'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import { withQuery } from '../HOCs/withQuery'
 import { ProductItem } from '../ProductItem/ProductItem'
@@ -15,7 +15,7 @@ function ProductsInner({ products }) {
         <div className="products__container">
           <h1 className="products__container-head">Все товары</h1>
           <div className="products__container-content">
-            {products.map((product) => (
+            {products.products.map((product) => (
               <ProductItem
                 // eslint-disable-next-line no-underscore-dangle
                 key={product._id}
@@ -32,7 +32,7 @@ function ProductsInner({ products }) {
 const ProductsInnerWithQuery = withQuery(ProductsInner)
 
 export function ProductsPage() {
-  const { token } = useSelector(getUserTokenSelector)
+  const { token } = useSelector(getTokenSelector)
 
   if (!token) {
     return (
@@ -54,7 +54,7 @@ export function ProductsPage() {
 
   const { data: products, isLoading } = useQuery({
     queryKey: ['GET_ALL_PRODUCTS', search],
-    queryFn: () => dogFoodApi.getAllProducts(search).then((res) => res.products),
+    queryFn: () => dogFoodApi.getAllProducts(search),
   })
   return <ProductsInnerWithQuery products={products} isLoading={isLoading} />
 }
