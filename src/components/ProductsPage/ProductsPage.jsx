@@ -33,7 +33,6 @@ const ProductsInnerWithQuery = withQuery(ProductsInner)
 
 export function ProductsPage() {
   const { token } = useSelector(getUserTokenSelector)
-
   if (!token) {
     return (
       <section className="products__container">
@@ -55,6 +54,8 @@ export function ProductsPage() {
   const { data: products, isLoading } = useQuery({
     queryKey: ['GET_ALL_PRODUCTS', search],
     queryFn: () => dogFoodApi.getAllProducts(search),
+    enabled: (token !== undefined) && (token !== ''),
   })
+
   return <ProductsInnerWithQuery products={products} isLoading={isLoading} />
 }

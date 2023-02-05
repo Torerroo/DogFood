@@ -57,7 +57,7 @@ class DogFoodApi {
 
   async getAllProducts(search) {
     this.checkToken()
-    const res = await fetch(`${this.baseURL}/products?q=${search}`, {
+    const res = await fetch(`${this.baseURL}/products?query=${search}`, {
       headers: {
         authorization: this.getAuthorizationHeader(),
       },
