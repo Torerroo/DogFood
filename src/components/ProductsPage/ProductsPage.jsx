@@ -9,6 +9,16 @@ import { ProductItem } from '../ProductItem/ProductItem'
 import './ProductsPage.css'
 
 function ProductsInner({ products }) {
+  if (products.total === 0) {
+    return (
+      <section className="products">
+        <div className="products__container">
+          <h1 className="products__container-head">Все товары</h1>
+          <p className="fs-1 opacity-75">Увы, ничего не найдено</p>
+        </div>
+      </section>
+    )
+  }
   if (products) {
     return (
       <section className="products">
@@ -35,7 +45,7 @@ export function ProductsPage() {
   const { token } = useSelector(getUserTokenSelector)
   if (!token) {
     return (
-      <section className="products__container">
+      <section className="products">
         <div className="products__container-auth">
           <h1>
             Вы не авторизованы, чтобы увидеть список товаров необходимо
@@ -56,6 +66,5 @@ export function ProductsPage() {
     queryFn: () => dogFoodApi.getAllProducts(search),
     enabled: (token !== undefined) && (token !== ''),
   })
-
   return <ProductsInnerWithQuery products={products} isLoading={isLoading} />
 }

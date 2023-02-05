@@ -1,8 +1,7 @@
 .product-item {
   width: 300px;
-
   text-align: center;
-  margin: 0 auto;
+  margin: 0 10px;
   border: 1px solid;
   background: white;
   font-family: "Open Sans";
