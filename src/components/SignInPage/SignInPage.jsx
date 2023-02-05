@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { validatorSignIn } from './validatorSignIn'
 import { dogFoodApi } from '../../Api/DogFoodApi'
-import { setToken } from '../../redux/slices/getTokenSlice'
+import { setToken } from '../../redux/slices/getUserTokenSlice'
 
 const initialValues = {
   email: '',
@@ -18,6 +18,7 @@ export function SignInPage() {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
+
   const {
     mutateAsync, isLoading, isError, error,
   } = useMutation({
