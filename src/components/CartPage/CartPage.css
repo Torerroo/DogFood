@@ -1,0 +1,8 @@
+.cart__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart__container h1 {
+  font-size: 38px;
+}

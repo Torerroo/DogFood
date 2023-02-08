@@ -1,19 +1,15 @@
+/* eslint-disable class-methods-use-this */
 class DogFoodApi {
   constructor({ baseURL }) {
     this.baseURL = baseURL
-    this.token = ''
   }
 
-  setToken(token) {
-    this.token = token
+  getAuthorizationToken(token) {
+    return `Bearer ${token}`
   }
 
-  getAuthorizationHeader() {
-    return `Bearer ${this.token}`
-  }
-
-  checkToken() {
-    if (!this.token) throw new Error('Отсутствует токен')
+  checkToken(token) {
+    if (!token) throw new Error('Отсутствует токен')
   }
 
   async signIn(values) {
@@ -55,11 +51,20 @@ class DogFoodApi {
     }
   }
 
-  async getAllProducts(search) {
-    this.checkToken()
+  getProductsByIds(ids, token) {
+    this.checkToken(token)
+    return Promise.all(ids.map((id) => fetch(`${this.baseURL}/products/${id}`), {
+      headers: {
+        authorization: this.getAuthorizationToken(token),
+      },
+    }).then((res) => res.json()))
+  }
+
+  async getAllProducts(search, token) {
+    this.checkToken(token)
     const res = await fetch(`${this.baseURL}/products?query=${search}`, {
       headers: {
-        authorization: this.getAuthorizationHeader(),
+        authorization: this.getAuthorizationToken(token),
       },
     })
     return res.json()

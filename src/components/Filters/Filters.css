@@ -1,0 +1,9 @@
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  gap: 10px;
+  font-size: 24px;
+  margin-bottom: 15px;
+}

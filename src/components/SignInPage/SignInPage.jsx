@@ -25,13 +25,12 @@ export function SignInPage() {
     mutationFn: (values) => dogFoodApi.signIn(values)
       .then((res) => {
         dispatch(setToken(res.token))
-        dogFoodApi.setToken(res.token)
       }),
   })
 
   const submitHandler = async (values) => {
     await mutateAsync(values)
-    setTimeout(() => navigate('/products'))
+    setTimeout(() => navigate('/catalog'))
   }
 
   return (

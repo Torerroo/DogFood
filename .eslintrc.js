@@ -8,6 +8,10 @@ module.exports = {
     'airbnb',
   ],
   overrides: [
+    {
+      files: ['scr/redux/slices/*Slice.js'],
+      rules: { 'no-param-reassign': ['error', { props: false }] },
+    },
   ],
   parserOptions: {
     ecmaVersion: 'latest',

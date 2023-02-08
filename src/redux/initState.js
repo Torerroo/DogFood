@@ -1,4 +1,4 @@
-const REDUX_LS_KEY = 'DOGFOOD_LS_KEY'
+import { DOGFOOD_LS_KEY } from './constants'
 
 export const initState = {
   user: {
@@ -7,9 +7,9 @@ export const initState = {
   filter: {
     search: '',
   },
+  cart: {},
 }
 export const getInitState = () => {
-  const dataFromLS = window.localStorage.getItem(REDUX_LS_KEY)
-
+  const dataFromLS = window.localStorage.getItem(DOGFOOD_LS_KEY)
   return dataFromLS ? JSON.parse(dataFromLS) : initState
 }

@@ -8,8 +8,9 @@ import App from './App'
 import { Main } from './components/Main/Main'
 import { SignUpPage } from './components/SignUpPage/SignUpPage'
 import { SignInPage } from './components/SignInPage/SignInPage'
-import { ProductsPage } from './components/ProductsPage/ProductsPage'
 import { store } from './redux/store'
+import { CartPage } from './components/CartPage/CartPage'
+import { Catalog } from './components/Catalog/Catalog'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const queryClient = new QueryClient()
@@ -32,8 +33,12 @@ const router = createBrowserRouter(
           element: <SignInPage />,
         },
         {
-          path: 'products',
-          element: <ProductsPage />,
+          path: 'Catalog',
+          element: <Catalog />,
+        },
+        {
+          path: 'cart',
+          element: <CartPage />,
         },
       ],
     },
