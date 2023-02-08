@@ -35,4 +35,26 @@
     .header__container-menu img {
       width: 35px;
     }
-    
+
+  .header__menu-cart {
+    position: relative;
+  }
+  .header__menu-cartLength {
+    font-weight: 700;
+    box-shadow: 0 0 0 2px #fff;
+    top: -3px;
+    left: 24px;
+    background: linear-gradient(0deg,#fc8507,#ffa218);
+    border-radius: 50px;
+    align-items: center;
+    color: #fff;
+    display: inline-flex;
+    font-size: 13px;
+    height: 15px;
+    justify-content: center;
+    line-height: 13px;
+    min-width: 16px;
+    position: absolute;
+    padding: 9px 5px;
+  }
+      

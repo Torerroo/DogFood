@@ -14,10 +14,13 @@ const cartSlice = createSlice({
       }
       Object.assign(state, newProduct)
     },
+    clearCart() {
+      return {}
+    },
   },
 })
 
-export const { addNewProductInCart } = cartSlice.actions
+export const { addNewProductInCart, clearCart } = cartSlice.actions
 
 export const getCartProductsSelector = (state) => state.cart
 
