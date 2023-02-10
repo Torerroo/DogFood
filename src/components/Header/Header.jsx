@@ -6,7 +6,7 @@ import cartIcon from './icons/cart.png'
 import favoriteIcon from './icons/favorite.png'
 import { getUserTokenSelector, setToken } from '../../redux/slices/getUserTokenSlice'
 import { Search } from '../Search/Search'
-import { clearCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
+import { getCartProductsSelector } from '../../redux/slices/cartSlice'
 
 export function Header() {
   const navigate = useNavigate()
@@ -21,7 +21,6 @@ export function Header() {
 
   const logoutHandler = () => {
     dispatch(setToken(''))
-    dispatch(clearCart())
     navigate('/')
   }
   return (

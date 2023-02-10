@@ -5,7 +5,7 @@ import cartIcon from '../Header/icons/cart.png'
 import checkIcon from '../Header/icons/check.png'
 
 export function ProductItem({
-  id, name, pictures, price,
+  id, name, pictures, price, wight,
 }) {
   const dispatch = useDispatch()
   const cartProduct = useSelector(getCartProductsSelector)
@@ -24,6 +24,8 @@ export function ProductItem({
           ₽
           {' '}
           {price}
+          {' / '}
+          {wight}
         </span>
         <button onClick={addNewProductInCartHandler} type="button">{tagProductInCart ? <img src={checkIcon} alt="icon" /> : <img src={cartIcon} alt="icon" />}</button>
       </div>

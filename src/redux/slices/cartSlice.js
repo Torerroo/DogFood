@@ -14,13 +14,24 @@ const cartSlice = createSlice({
       }
       Object.assign(state, newProduct)
     },
+    deleteProductInCart(state, action) {
+      delete state[action.payload]
+    },
     clearCart() {
       return {}
+    },
+    countIncrement(state, action) {
+      state[action.payload].count += 1
+    },
+    countDecrement(state, action) {
+      state[action.payload].count -= 1
     },
   },
 })
 
-export const { addNewProductInCart, clearCart } = cartSlice.actions
+export const {
+  addNewProductInCart, deleteProductInCart, clearCart, countIncrement, countDecrement,
+} = cartSlice.actions
 
 export const getCartProductsSelector = (state) => state.cart
 
