@@ -6,3 +6,11 @@
 .cart__container h1 {
   font-size: 38px;
 }
+.cart__container-auth {
+  height: 20vh;
+  font-size: 24px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

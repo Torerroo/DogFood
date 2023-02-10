@@ -52,12 +52,11 @@ class DogFoodApi {
   }
 
   getProductsByIds(ids, token) {
-    this.checkToken(token)
-    return Promise.all(ids.map((id) => fetch(`${this.baseURL}/products/${id}`), {
+    return Promise.all(ids.map((id) => fetch(`${this.baseURL}/products/${id}`, {
       headers: {
         authorization: this.getAuthorizationToken(token),
       },
-    }).then((res) => res.json()))
+    }).then((res) => res.json())))
   }
 
   async getAllProducts(search, token) {

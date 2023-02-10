@@ -6,14 +6,7 @@
 .products__container {
   padding: 0 15px;
 }
-.products__container-auth {
-  height: 20vh;
-  font-size: 24px;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .products__container-content {
   display: flex;
   flex-wrap: wrap;

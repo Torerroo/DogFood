@@ -3,3 +3,11 @@
   text-align: center;
   margin-bottom: 30px;
 }
+.products__container-auth {
+  height: 20vh;
+  font-size: 24px;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
