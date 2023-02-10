@@ -67,7 +67,7 @@ export function CartItem({
         <div className="cart-right-info-name">
           <h2>{name}</h2>
           <p>
-            В наличии
+            В наличии:
             {' '}
             {stock}
             {' '}

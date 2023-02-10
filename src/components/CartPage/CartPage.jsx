@@ -74,13 +74,14 @@ const CartPageInnerWithQuery = withQuery(CartPageInner)
 
 export function CartPage() {
   const { token } = useSelector(getUserTokenSelector)
-  const cart = useSelector(getCartProductsSelector)
   const dispatch = useDispatch()
+  const cart = useSelector(getCartProductsSelector)
   const ids = Object.keys(cart)
 
   const { data: products, isLoading } = useQuery({
-    queryKey: ['cart', cart],
+    queryKey: ['cart', ids],
     queryFn: () => dogFoodApi.getProductsByIds(ids, token),
+    enabled: !!token,
   })
 
   const clearCartHandler = () => {
