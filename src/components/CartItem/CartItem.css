@@ -11,6 +11,7 @@
   flex-direction: column;
   gap: 5px;
   margin: 10px;
+  width: 200px;
 }
   .cart-left-info-img {
     width: 170px;

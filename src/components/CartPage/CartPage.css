@@ -35,14 +35,36 @@
   }
   .cart-tab-total-amount {
     border: 1px solid black;
-    width: 400px;
-    height: 400px;
+    width: 320px;
+    height: 300px;
     border-radius: 8px;
+    padding: 10px;
   }
     .cart-tab-total-amount h3 {
       text-align: center;
       font-size: 24px;
       padding: 10px;
+    }
+    .cart-tab-total-amount > div > p {
+      font-size: 16px;
+      color: gray;
+      margin: 0;
+    }
+    .cart-tab-total-amount > div > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 24px;
+    }
+    .cart-tab-total-amount button {
+      background: transparent;
+      width: 100%;
+      font-size: 20px;
+      padding: 15px;
+      border: 1px solid black;
+      border-radius: 8px;
+      background-color: rgb(263, 195, 0);
+      margin-top: 20px;
     }
 
 .cart__container-empty {

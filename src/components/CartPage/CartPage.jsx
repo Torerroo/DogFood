@@ -11,6 +11,7 @@ import { withQuery } from '../HOCs/withQuery'
 
 function CartPageInner({
   token, ids, products, clearCartHandler, isCheckedHandler,
+  getSumPriceAllProducts, getSumCountAllProducts,
 }) {
   if (!token) {
     return (
@@ -65,6 +66,24 @@ function CartPageInner({
             </div>
             <div className="cart-tab-total-amount">
               <h3>Условия заказа</h3>
+              <hr />
+              <div>
+                <p>Итого:</p>
+                <div>
+                  <p>
+                    {getSumCountAllProducts()}
+                    {getSumCountAllProducts() === 1 ? ' товар' : ''}
+                    {getSumCountAllProducts() > 1 && getSumCountAllProducts() < 5 ? ' товара' : ''}
+                    {getSumCountAllProducts() > 4 ? ' товаров' : ''}
+                  </p>
+                  <p>
+                    {getSumPriceAllProducts()}
+                    {' '}
+                    ₽
+                  </p>
+                </div>
+              </div>
+              <button type="button">Перейти к оформлению</button>
             </div>
           </div>
         </div>
@@ -92,6 +111,34 @@ export function CartPage() {
     queryFn: () => dogFoodApi.getProductsByIds(ids, token),
   })
 
+  // eslint-disable-next-line consistent-return
+  const getSumPriceAllProducts = () => {
+    if (products) {
+      let sumAllProduct = 0
+      products.map((product) => {
+        const { count } = cart[product._id]
+        if (product.discount) {
+          const discountPrice = product.price * ((100 - product.discount) / 100)
+          sumAllProduct += discountPrice * count
+        } else {
+          sumAllProduct += product.price * count
+        }
+        return sumAllProduct
+      })
+      return (sumAllProduct)
+    }
+  }
+
+  const getSumCountAllProducts = () => {
+    if (products) {
+      let sumCount = 0
+      // eslint-disable-next-line array-callback-return
+      products.map((product) => { sumCount += cart[product._id].count })
+      return sumCount
+    }
+    return 0
+  }
+
   return (
     <CartPageInnerWithQuery
       products={products}
@@ -100,6 +147,8 @@ export function CartPage() {
       isLoading={isLoading}
       clearCartHandler={clearCartHandler}
       isCheckedHandler={isCheckedHandler}
+      getSumPriceAllProducts={getSumPriceAllProducts}
+      getSumCountAllProducts={getSumCountAllProducts}
     />
   )
 }
