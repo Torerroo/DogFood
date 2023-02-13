@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-underscore-dangle */
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -64,27 +66,36 @@ function CartPageInner({
                 />
               ))}
             </div>
-            <div className="cart-tab-total-amount">
-              <h3>Условия заказа</h3>
-              <hr />
-              <div>
-                <p>Итого:</p>
-                <div>
-                  <p>
-                    {getSumCountAllProducts()}
-                    {getSumCountAllProducts() === 1 ? ' товар' : ''}
-                    {getSumCountAllProducts() > 1 && getSumCountAllProducts() < 5 ? ' товара' : ''}
-                    {getSumCountAllProducts() > 4 ? ' товаров' : ''}
-                  </p>
-                  <p>
-                    {getSumPriceAllProducts()}
-                    {' '}
-                    ₽
-                  </p>
+            {getSumCountAllProducts()
+              ? (
+                <div className="cart-tab-total-amount">
+                  <h3>Условия заказа</h3>
+                  <hr />
+                  <div>
+                    <p>Итого:</p>
+                    <div>
+                      <p>
+                        {getSumCountAllProducts()}
+                        {getSumCountAllProducts() === 1 ? ' товар' : ''}
+                        {getSumCountAllProducts() > 1 && getSumCountAllProducts() < 5 ? ' товара' : ''}
+                        {getSumCountAllProducts() > 4 ? ' товаров' : ''}
+                      </p>
+                      <p>
+                        {getSumPriceAllProducts()}
+                        {' '}
+                        ₽
+                      </p>
+                    </div>
+                  </div>
+                  <button type="button">Перейти к оформлению</button>
                 </div>
-              </div>
-              <button type="button">Перейти к оформлению</button>
-            </div>
+              )
+              : (
+                <div className="cart-tab-total-amount-withoutProduct">
+                  <h3>Выберите товары, чтобы перейти к оформлению</h3>
+                  <button onClick={isCheckedHandler} className="isCheckedHandler" type="button">Выбрать все</button>
+                </div>
+              )}
           </div>
         </div>
       </section>
@@ -111,19 +122,20 @@ export function CartPage() {
     queryFn: () => dogFoodApi.getProductsByIds(ids, token),
   })
 
-  // eslint-disable-next-line consistent-return
   const getSumPriceAllProducts = () => {
     if (products) {
       let sumAllProduct = 0
       products.map((product) => {
-        const { count } = cart[product._id]
-        if (product.discount) {
-          const discountPrice = product.price * ((100 - product.discount) / 100)
-          sumAllProduct += discountPrice * count
-        } else {
-          sumAllProduct += product.price * count
+        if (cart[product._id].isChecked) {
+          const { count } = cart[product._id]
+          if (product.discount) {
+            const discountPrice = product.price * ((100 - product.discount) / 100)
+            sumAllProduct += discountPrice * count
+          } else {
+            sumAllProduct += product.price * count
+          }
+          return sumAllProduct
         }
-        return sumAllProduct
       })
       return (sumAllProduct)
     }
@@ -132,8 +144,11 @@ export function CartPage() {
   const getSumCountAllProducts = () => {
     if (products) {
       let sumCount = 0
-      // eslint-disable-next-line array-callback-return
-      products.map((product) => { sumCount += cart[product._id].count })
+      products.map((product) => {
+        if (cart[product._id].isChecked) {
+          sumCount += cart[product._id].count
+        }
+      })
       return sumCount
     }
     return 0

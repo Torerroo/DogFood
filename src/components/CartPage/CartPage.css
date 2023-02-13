@@ -40,6 +40,26 @@
     border-radius: 8px;
     padding: 10px;
   }
+  .cart-tab-total-amount-withoutProduct {
+    border: 1px solid black;
+    width: 320px;
+    height: 300px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.2s;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+  .cart-tab-total-amount-withoutProduct h3{
+    text-align: center;
+    font-size: 24px;
+    padding: 10px;
+  }
+  .cart-tab-total-amount-withoutProduct button:hover {
+    background-color: rgb(29, 172, 29);
+  }
     .cart-tab-total-amount h3 {
       text-align: center;
       font-size: 24px;
@@ -65,6 +85,10 @@
       border-radius: 8px;
       background-color: rgb(263, 195, 0);
       margin-top: 20px;
+      transition: all 0.3s;
+    }
+    .cart-tab-total-amount button:hover {
+      background-color: aquamarine;
     }
 
 .cart__container-empty {
@@ -85,7 +109,7 @@
   display: flex;
   gap: 20px;
 }
-.cart__container-handlers button {
+.cart__container-handlers button, .cart-tab-total-amount-withoutProduct button  {
   font-size: 16px;
   background: transparent;
   border: 1px solid black;

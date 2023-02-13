@@ -32,6 +32,9 @@ const cartSlice = createSlice({
     changeAllStatusOnTrue(state, action) {
       state[action.payload].isChecked = true
     },
+    changeAllStatusOnFalse(state, action) {
+      state[action.payload].isChecked = false
+    },
   },
 })
 
@@ -43,6 +46,7 @@ export const {
   countDecrement,
   changeStatusIsChecked,
   changeAllStatusOnTrue,
+  changeAllStatusOnFalse,
 } = cartSlice.actions
 
 export const getCartProductsSelector = (state) => state.cart
