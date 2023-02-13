@@ -26,11 +26,23 @@ const cartSlice = createSlice({
     countDecrement(state, action) {
       state[action.payload].count -= 1
     },
+    changeStatusIsChecked(state, action) {
+      state[action.payload].isChecked = !state[action.payload].isChecked
+    },
+    changeAllStatusOnTrue(state, action) {
+      state[action.payload].isChecked = true
+    },
   },
 })
 
 export const {
-  addNewProductInCart, deleteProductInCart, clearCart, countIncrement, countDecrement,
+  addNewProductInCart,
+  deleteProductInCart,
+  clearCart,
+  countIncrement,
+  countDecrement,
+  changeStatusIsChecked,
+  changeAllStatusOnTrue,
 } = cartSlice.actions
 
 export const getCartProductsSelector = (state) => state.cart

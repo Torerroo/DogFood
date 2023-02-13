@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  changeStatusIsChecked,
   countDecrement, countIncrement, deleteProductInCart, getCartProductsSelector,
 } from '../../redux/slices/cartSlice'
 import './CartItem.css'
@@ -11,6 +12,7 @@ export function CartItem({
 
   const cart = useSelector(getCartProductsSelector)
   const { count } = cart[id]
+  const { isChecked } = cart[id]
 
   const dispatch = useDispatch()
 
@@ -18,6 +20,11 @@ export function CartItem({
     if (count < stock) {
       dispatch(countIncrement(id))
     }
+  }
+
+  const changeStatusCheckbox = () => {
+    const target = Object.keys(cart).find((currentID) => currentID === id)
+    dispatch(changeStatusIsChecked(target))
   }
 
   const countDecrementHandler = () => {
@@ -81,6 +88,9 @@ export function CartItem({
           <button onClick={countIncrementHandler} type="button">+</button>
         </div>
         <div className="cart-right-info-description">{description}</div>
+      </div>
+      <div className="cart-item-checkbox">
+        <input type="checkbox" onChange={changeStatusCheckbox} checked={isChecked} />
       </div>
     </div>
   )

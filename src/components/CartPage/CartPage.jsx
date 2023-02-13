@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { dogFoodApi } from '../../Api/DogFoodApi'
-import { clearCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
+import { changeAllStatusOnTrue, clearCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
 import { getUserTokenSelector } from '../../redux/slices/getUserTokenSlice'
 import './CartPage.css'
 import { CartItem } from '../CartItem/CartItem'
 import { withQuery } from '../HOCs/withQuery'
 
 function CartPageInner({
-  token, ids, products, clearCartHandler,
+  token, ids, products, clearCartHandler, isCheckedHandler,
 }) {
   if (!token) {
     return (
@@ -43,7 +43,10 @@ function CartPageInner({
       <section className="cart">
         <div className="cart__container">
           <h1>Корзина</h1>
-          <button onClick={clearCartHandler} className="clearCartHandler" type="button">Очистить корзину</button>
+          <div className="cart__container-handlers">
+            <button onClick={isCheckedHandler} className="isCheckedHandler" type="button">Выбрать все</button>
+            <button onClick={clearCartHandler} className="clearCartHandler" type="button">Очистить корзину</button>
+          </div>
           <div className="cart__container-content">
             <div className="cart-tab-products-list">
               {products.map((product) => (
@@ -77,16 +80,17 @@ export function CartPage() {
   const dispatch = useDispatch()
   const cart = useSelector(getCartProductsSelector)
   const ids = Object.keys(cart)
+  const clearCartHandler = () => {
+    dispatch(clearCart())
+  }
+  const isCheckedHandler = () => {
+    ids.map((id) => dispatch(changeAllStatusOnTrue(id)))
+  }
 
   const { data: products, isLoading } = useQuery({
     queryKey: ['cart', ids],
     queryFn: () => dogFoodApi.getProductsByIds(ids, token),
-    enabled: !!token,
   })
-
-  const clearCartHandler = () => {
-    dispatch(clearCart())
-  }
 
   return (
     <CartPageInnerWithQuery
@@ -95,6 +99,7 @@ export function CartPage() {
       ids={ids}
       isLoading={isLoading}
       clearCartHandler={clearCartHandler}
+      isCheckedHandler={isCheckedHandler}
     />
   )
 }

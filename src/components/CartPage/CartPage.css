@@ -14,19 +14,6 @@
 
   margin-bottom: 10px;
 }
-.clearCartHandler {
-  width: 150px;
-  font-size: 16px;
-  background: transparent;
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: 5px;
-  background-color: gold;
-  transition: all 0.2s;
-}
-.clearCartHandler:hover {
-  background-color: red;
-}
 .cart__container-auth {
   height: 20vh;
   font-size: 24px;
@@ -71,4 +58,23 @@
 .cart__container-empty a {
   font-size: 24px;
   margin-bottom: 10px;
+}
+.cart__container-handlers {
+  display: flex;
+  gap: 20px;
+}
+.cart__container-handlers button {
+  font-size: 16px;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: gold;
+  transition: all 0.2s;
+}
+.cart__container-handlers button:first-child:hover {
+  background-color: rgb(29, 172, 29);
+}
+.cart__container-handlers button:last-child:hover {
+  background-color: red;
 }
