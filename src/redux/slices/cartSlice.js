@@ -9,7 +9,7 @@ const cartSlice = createSlice({
       const newProduct = {
         [action.payload.id]: {
           count: 1,
-          isChecked: false,
+          isChecked: true,
         },
       }
       Object.assign(state, newProduct)
