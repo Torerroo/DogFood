@@ -5,15 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { dogFoodApi } from '../../Api/DogFoodApi'
-import { changeAllStatusOnTrue, clearCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
+import {
+  changeAllStatusOnFalse, changeAllStatusOnTrue, clearCart, getCartProductsSelector,
+} from '../../redux/slices/cartSlice'
 import { getUserTokenSelector } from '../../redux/slices/getUserTokenSlice'
 import './CartPage.css'
 import { CartItem } from '../CartItem/CartItem'
 import { withQuery } from '../HOCs/withQuery'
 
 function CartPageInner({
-  token, ids, products, clearCartHandler, isCheckedHandler,
-  getSumPriceAllProducts, getSumCountAllProducts,
+  token, ids, products, clearCartHandler, isCheckedOnTrueHandler,
+  getSumPriceAllProducts, getSumCountAllProducts, isCheckedOnFalseHandler,
 }) {
   if (!token) {
     return (
@@ -47,7 +49,8 @@ function CartPageInner({
         <div className="cart__container">
           <h1>Корзина</h1>
           <div className="cart__container-handlers">
-            <button onClick={isCheckedHandler} className="isCheckedHandler" type="button">Выбрать все</button>
+            <button onClick={isCheckedOnTrueHandler} className="isCheckedHandler" type="button">Выбрать все</button>
+            <button onClick={isCheckedOnFalseHandler} className="isCheckedHandler" type="button">Убрать все</button>
             <button onClick={clearCartHandler} className="clearCartHandler" type="button">Очистить корзину</button>
           </div>
           <div className="cart__container-content">
@@ -72,8 +75,19 @@ function CartPageInner({
                   <h3>Условия заказа</h3>
                   <hr />
                   <div>
-                    <p>Итого:</p>
-                    <div>
+                    <div className="cart-tab-total-amount-price">
+                      <span>Итого:</span>
+                      {' '}
+                      {getSumPriceAllProducts()[0] !== getSumPriceAllProducts()[1]
+                        ? (
+                          <span>
+                            {getSumPriceAllProducts()[1]}
+                            {' '}
+                            ₽
+                          </span>
+                        ) : ''}
+                    </div>
+                    <div className="cart-tab-total-amount-products">
                       <p>
                         {getSumCountAllProducts()}
                         {getSumCountAllProducts() === 1 ? ' товар' : ''}
@@ -81,7 +95,7 @@ function CartPageInner({
                         {getSumCountAllProducts() > 4 ? ' товаров' : ''}
                       </p>
                       <p>
-                        {getSumPriceAllProducts()}
+                        {getSumPriceAllProducts()[0]}
                         {' '}
                         ₽
                       </p>
@@ -93,7 +107,7 @@ function CartPageInner({
               : (
                 <div className="cart-tab-total-amount-withoutProduct">
                   <h3>Выберите товары, чтобы перейти к оформлению</h3>
-                  <button onClick={isCheckedHandler} className="isCheckedHandler" type="button">Выбрать все</button>
+                  <button onClick={isCheckedOnTrueHandler} className="isCheckedHandler" type="button">Выбрать все</button>
                 </div>
               )}
           </div>
@@ -113,9 +127,14 @@ export function CartPage() {
   const clearCartHandler = () => {
     dispatch(clearCart())
   }
-  const isCheckedHandler = () => {
+  const isCheckedOnTrueHandler = () => {
     ids.map((id) => {
       dispatch(changeAllStatusOnTrue(id))
+    })
+  }
+  const isCheckedOnFalseHandler = () => {
+    ids.map((id) => {
+      dispatch(changeAllStatusOnFalse(id))
     })
   }
 
@@ -127,6 +146,7 @@ export function CartPage() {
   const getSumPriceAllProducts = () => {
     if (products) {
       let sumAllProduct = 0
+      let sumAllProductWithoutDiscount = 0
       products.map((product) => {
         if (cart[product._id].isChecked) {
           const { count } = cart[product._id]
@@ -136,13 +156,13 @@ export function CartPage() {
           } else {
             sumAllProduct += product.price * count
           }
+          sumAllProductWithoutDiscount += product.price * count
           return sumAllProduct
         }
       })
-      return (sumAllProduct)
+      return [sumAllProduct, sumAllProductWithoutDiscount]
     }
   }
-
   const getSumCountAllProducts = () => {
     if (products) {
       let sumCount = 0
@@ -163,7 +183,8 @@ export function CartPage() {
       ids={ids}
       isLoading={isLoading}
       clearCartHandler={clearCartHandler}
-      isCheckedHandler={isCheckedHandler}
+      isCheckedOnTrueHandler={isCheckedOnTrueHandler}
+      isCheckedOnFalseHandler={isCheckedOnFalseHandler}
       getSumPriceAllProducts={getSumPriceAllProducts}
       getSumCountAllProducts={getSumCountAllProducts}
     />

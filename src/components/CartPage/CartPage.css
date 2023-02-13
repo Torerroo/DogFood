@@ -65,12 +65,16 @@
       font-size: 24px;
       padding: 10px;
     }
-    .cart-tab-total-amount > div > p {
-      font-size: 16px;
+    .cart-tab-total-amount-price {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       color: gray;
-      margin: 0;
     }
-    .cart-tab-total-amount > div > div {
+    .cart-tab-total-amount-price span:nth-child(2) {
+      text-decoration: line-through;
+    }
+    .cart-tab-total-amount-products {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -118,7 +122,7 @@
   background-color: gold;
   transition: all 0.2s;
 }
-.cart__container-handlers button:first-child:hover {
+.cart__container-handlers button:hover {
   background-color: rgb(29, 172, 29);
 }
 .cart__container-handlers button:last-child:hover {
