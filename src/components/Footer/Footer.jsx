@@ -4,7 +4,7 @@ import './Footer.css'
 
 export function Footer() {
   return (
-    <section className="footer">
+    <footer className="footer">
       <div className="footer__container">
         <div className="footer__container-logo">
           <Logo />
@@ -34,6 +34,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </section>
+    </footer>
   )
 }

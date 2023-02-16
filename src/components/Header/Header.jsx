@@ -24,7 +24,7 @@ export function Header() {
     navigate('/')
   }
   return (
-    <section className="header">
+    <header className="header">
       <div className="header__container">
         <Logo />
         {searchVisable ? <Search /> : ''}
@@ -39,6 +39,6 @@ export function Header() {
           <Link onClick={logoutHandler} to="./signin">{token ? 'Выход' : 'Вход'}</Link>
         </div>
       </div>
-    </section>
+    </header>
   )
 }

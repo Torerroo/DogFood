@@ -138,10 +138,12 @@ export function CartPage() {
     })
   }
 
-  const { data: products, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['cart', ids],
     queryFn: () => dogFoodApi.getProductsByIds(ids, token),
+    keepPreviousData: true,
   })
+  const products = data && data.filter((productFromServer) => ids.includes(productFromServer._id))
 
   const getSumPriceAllProducts = () => {
     if (products) {
