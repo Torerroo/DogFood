@@ -1,0 +1,14 @@
+.account {
+  font-size: 30px;
+}
+.account__container {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+.account__containerItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

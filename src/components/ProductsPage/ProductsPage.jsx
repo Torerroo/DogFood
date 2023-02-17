@@ -2,7 +2,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useSelector } from 'react-redux'
 import { getSearchSelector } from '../../redux/slices/filterSlice'
-import { getUserTokenSelector } from '../../redux/slices/getUserTokenSlice'
+import { getUserInfoSelector } from '../../redux/slices/userInfoSlice'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import { withQuery } from '../HOCs/withQuery'
 import { ProductItem } from '../ProductItem/ProductItem'
@@ -43,7 +43,7 @@ function ProductsInner({ products }) {
 const ProductsInnerWithQuery = withQuery(ProductsInner)
 
 export function ProductsPage() {
-  const { token } = useSelector(getUserTokenSelector)
+  const { token } = useSelector(getUserInfoSelector)
 
   const search = useSelector(getSearchSelector)
 

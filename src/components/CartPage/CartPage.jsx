@@ -8,7 +8,7 @@ import { dogFoodApi } from '../../Api/DogFoodApi'
 import {
   changeAllStatusOnFalse, changeAllStatusOnTrue, clearCart, getCartProductsSelector,
 } from '../../redux/slices/cartSlice'
-import { getUserTokenSelector } from '../../redux/slices/getUserTokenSlice'
+import { getUserInfoSelector } from '../../redux/slices/userInfoSlice'
 import './CartPage.css'
 import { CartItem } from '../CartItem/CartItem'
 import { withQuery } from '../HOCs/withQuery'
@@ -120,7 +120,7 @@ function CartPageInner({
 const CartPageInnerWithQuery = withQuery(CartPageInner)
 
 export function CartPage() {
-  const { token } = useSelector(getUserTokenSelector)
+  const { token } = useSelector(getUserInfoSelector)
   const dispatch = useDispatch()
   const cart = useSelector(getCartProductsSelector)
   const ids = Object.keys(cart)

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Logo } from '../Logo/Logo'
 import cartIcon from './icons/cart.png'
 import favoriteIcon from './icons/favorite.png'
-import { getUserTokenSelector, setToken } from '../../redux/slices/getUserTokenSlice'
+import account from './icons/account.png'
+import { getUserInfoSelector, resetUserInfo } from '../../redux/slices/userInfoSlice'
 import { Search } from '../Search/Search'
 import { getCartProductsSelector } from '../../redux/slices/cartSlice'
 
@@ -12,15 +13,13 @@ export function Header() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const match = useMatch('/catalog')
-
-  const { token } = useSelector(getUserTokenSelector)
-
+  const { token } = useSelector(getUserInfoSelector)
   const cart = useSelector(getCartProductsSelector)
   const cartLength = Object.keys(cart).length
   const searchVisable = match && token
 
   const logoutHandler = () => {
-    dispatch(setToken(''))
+    dispatch(resetUserInfo())
     navigate('/')
   }
   return (
@@ -35,7 +34,7 @@ export function Header() {
             <img src={cartIcon} alt="icon" />
             {cartLength ? <span className="header__menu-cartLength">{cartLength}</span> : ''}
           </Link>
-          <Link to="./signup">Регистрация</Link>
+          {token ? <Link to="./account"><img src={account} alt="account" /></Link> : <Link to="./signup">Регистрация</Link>}
           <Link onClick={logoutHandler} to="./signin">{token ? 'Выход' : 'Вход'}</Link>
         </div>
       </div>

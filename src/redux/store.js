@@ -3,11 +3,11 @@ import { DOGFOOD_LS_KEY } from './constants'
 import { getInitState } from './initState'
 import { cartReducer } from './slices/cartSlice'
 import { filterReducer } from './slices/filterSlice'
-import { tokenReducer } from './slices/getUserTokenSlice'
+import { userInfoReducer } from './slices/userInfoSlice'
 
 export const store = configureStore({
   reducer: {
-    user: tokenReducer,
+    user: userInfoReducer,
     filter: filterReducer,
     cart: cartReducer,
   },

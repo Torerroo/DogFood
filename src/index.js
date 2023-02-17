@@ -11,6 +11,7 @@ import { SignInPage } from './components/SignInPage/SignInPage'
 import { store } from './redux/store'
 import { CartPage } from './components/CartPage/CartPage'
 import { Catalog } from './components/Catalog/Catalog'
+import { AccountPage } from './components/AccountPage/AccountPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const queryClient = new QueryClient()
@@ -33,12 +34,16 @@ const router = createBrowserRouter(
           element: <SignInPage />,
         },
         {
-          path: 'Catalog',
+          path: 'catalog',
           element: <Catalog />,
         },
         {
           path: 'cart',
           element: <CartPage />,
+        },
+        {
+          path: 'account',
+          element: <AccountPage />,
         },
       ],
     },

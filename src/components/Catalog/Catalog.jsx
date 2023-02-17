@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getUserTokenSelector } from '../../redux/slices/getUserTokenSlice'
+import { getUserInfoSelector } from '../../redux/slices/userInfoSlice'
 import { Filters } from '../Filters/Filters'
 import { ProductsPage } from '../ProductsPage/ProductsPage'
 import './Catalog.css'
 
 export function Catalog() {
-  const { token } = useSelector(getUserTokenSelector)
+  const { token } = useSelector(getUserInfoSelector)
 
   if (!token) {
     return (
