@@ -29,7 +29,7 @@ export function Header() {
         {searchVisable ? <Search /> : ''}
         <div className="header__container-menu">
           <Link to="./catalog">Каталог</Link>
-          <Link to="./"><img src={favoriteIcon} alt="icon" /></Link>
+          <Link to="./favorites"><img src={favoriteIcon} alt="icon" /></Link>
           <Link to="./cart" className="header__menu-cart">
             <img src={cartIcon} alt="icon" />
             {cartLength ? <span className="header__menu-cartLength">{cartLength}</span> : ''}

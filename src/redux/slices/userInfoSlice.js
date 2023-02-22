@@ -20,6 +20,9 @@ const userInfoSlice = createSlice({
     setUserAvatar(state, action) {
       state.avatar = action.payload
     },
+    setUserAbout(state, action) {
+      state.about = action.payload
+    },
     resetUserInfo() {
       return initState.user
     },
@@ -27,7 +30,7 @@ const userInfoSlice = createSlice({
 })
 
 export const {
-  setUserToken, setUserName, setUserEmail, setUserGroup, setUserAvatar, resetUserInfo,
+  setUserToken, setUserName, setUserEmail, setUserGroup, setUserAvatar, resetUserInfo, setUserAbout,
 } = userInfoSlice.actions
 
 export const getUserInfoSelector = (state) => state.user

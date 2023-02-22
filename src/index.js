@@ -12,9 +12,16 @@ import { store } from './redux/store'
 import { CartPage } from './components/CartPage/CartPage'
 import { Catalog } from './components/Catalog/Catalog'
 import { AccountPage } from './components/AccountPage/AccountPage'
+import { FavoritesPage } from './components/FavoritesPage/FavoritesPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 const router = createBrowserRouter(
   [
     {
@@ -44,6 +51,10 @@ const router = createBrowserRouter(
         {
           path: 'account',
           element: <AccountPage />,
+        },
+        {
+          path: 'favorites',
+          element: <FavoritesPage />,
         },
       ],
     },

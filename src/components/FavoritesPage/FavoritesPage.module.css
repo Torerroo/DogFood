@@ -1,0 +1,9 @@
+.favorites {
+  font-size: 30px;
+}
+.favorites__container {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+  text-align: center;
+}

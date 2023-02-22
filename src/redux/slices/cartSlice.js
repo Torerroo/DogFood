@@ -29,11 +29,19 @@ const cartSlice = createSlice({
     changeStatusIsChecked(state, action) {
       state[action.payload].isChecked = !state[action.payload].isChecked
     },
-    changeAllStatusOnTrue(state, action) {
-      state[action.payload].isChecked = true
+    changeAllStatusOnTrue(state) {
+      const ids = Object.keys(state)
+      ids.map((id) => {
+        state[id].isChecked = true
+        return id
+      })
     },
-    changeAllStatusOnFalse(state, action) {
-      state[action.payload].isChecked = false
+    changeAllStatusOnFalse(state) {
+      const ids = Object.keys(state)
+      ids.map((id) => {
+        state[id].isChecked = false
+        return id
+      })
     },
   },
 })

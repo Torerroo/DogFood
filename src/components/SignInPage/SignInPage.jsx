@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { validatorSignIn } from './validatorSignIn'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import {
+  setUserAbout,
   setUserAvatar, setUserEmail, setUserGroup, setUserName, setUserToken,
 } from '../../redux/slices/userInfoSlice'
 
@@ -31,6 +32,7 @@ export function SignInPage() {
         dispatch(setUserEmail(res.data.email))
         dispatch(setUserGroup(res.data.group))
         dispatch(setUserAvatar(res.data.avatar))
+        dispatch(setUserAbout(res.data.about))
       }),
   })
 

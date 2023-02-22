@@ -7,6 +7,7 @@ export const initState = {
     email: '',
     group: '',
     avatar: '',
+    about: '',
   },
   filter: {
     search: '',

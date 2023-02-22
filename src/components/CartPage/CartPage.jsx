@@ -128,14 +128,10 @@ export function CartPage() {
     dispatch(clearCart())
   }
   const isCheckedOnTrueHandler = () => {
-    ids.map((id) => {
-      dispatch(changeAllStatusOnTrue(id))
-    })
+    dispatch(changeAllStatusOnTrue())
   }
   const isCheckedOnFalseHandler = () => {
-    ids.map((id) => {
-      dispatch(changeAllStatusOnFalse(id))
-    })
+    dispatch(changeAllStatusOnFalse())
   }
 
   const { data, isLoading } = useQuery({
