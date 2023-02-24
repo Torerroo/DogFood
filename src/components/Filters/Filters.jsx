@@ -6,7 +6,6 @@ const FILTERS = ['Цена', 'Скидка', 'Новое']
 
 export function Filters() {
   const [searchParams, setSearchParams] = useSearchParams()
-
   const clickFilterHandler = (filterName) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),

@@ -31,6 +31,7 @@ function ProductsInner({ products }) {
                 price={product.price}
                 pictures={product.pictures}
                 wight={product.wight}
+                discount={product.discount}
               />
             ))}
           </div>

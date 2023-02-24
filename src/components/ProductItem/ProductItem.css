@@ -6,6 +6,7 @@
   background: white;
   font-family: "Open Sans";
   transition: .3s ease-in;
+  position: relative;
 }
 .product-item img {
   display: block;
@@ -17,19 +18,23 @@
   padding: 15px 0;
 }
 .product-list h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   color: #444444;
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 3px;
 }
-.price {
-  font-size: 16px;
-  color: firebrick;
+.product-list-price {
+  font-size: 18px;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+}
+.PriceWithDiscount {
+  text-decoration: line-through;
+  color: red;
 }
 .product-list button {
   text-decoration: none;
@@ -43,11 +48,13 @@
   transition: .2s ease-in;
   border-radius: 4px;
 }
+.product-list-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
 .product-list button img {
   width: 35px;
   height: 35px;
   padding: 5px;
-}
-.product-item:hover button {
-  background-color: coral;
 }
