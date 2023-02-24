@@ -3,6 +3,7 @@ import './FilterItem.css'
 
 export function FilterItem({ filterName, clickFilterHandler }) {
   const [searchParams] = useSearchParams()
+
   const currentFilterName = searchParams.get('filterName')
 
   return (

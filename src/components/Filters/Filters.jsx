@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom'
-import { FilterItem } from '../FilterItem/FilterItem'
+import { FilterItem } from './FilterItem/FilterItem'
 import './Filters.css'
 
 const FILTERS = ['Цена', 'Скидка', 'Новое']

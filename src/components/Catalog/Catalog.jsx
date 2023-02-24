@@ -28,7 +28,6 @@ export function Catalog() {
       <>
         <h1 className="products__container-head">Все товары</h1>
         <Filters />
-        ,
         <ProductsPage />
       </>
     )

@@ -13,6 +13,7 @@ export const initState = {
     search: '',
   },
   cart: {},
+  favorite: [],
 }
 export const getInitState = () => {
   const dataFromLS = window.localStorage.getItem(DOGFOOD_LS_KEY)

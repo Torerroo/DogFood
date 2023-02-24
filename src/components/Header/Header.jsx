@@ -8,6 +8,7 @@ import account from './icons/account.png'
 import { getUserInfoSelector, resetUserInfo } from '../../redux/slices/userInfoSlice'
 import { Search } from '../Search/Search'
 import { getCartProductsSelector } from '../../redux/slices/cartSlice'
+import { getFavoriteSelector } from '../../redux/slices/favoriteSlice'
 
 export function Header() {
   const navigate = useNavigate()
@@ -15,7 +16,9 @@ export function Header() {
   const match = useMatch('/catalog')
   const { token } = useSelector(getUserInfoSelector)
   const cart = useSelector(getCartProductsSelector)
+  const favorite = useSelector(getFavoriteSelector)
   const cartLength = Object.keys(cart).length
+  const favoriteLength = favorite.length
   const searchVisable = match && token
 
   const logoutHandler = () => {
@@ -29,7 +32,10 @@ export function Header() {
         {searchVisable ? <Search /> : ''}
         <div className="header__container-menu">
           <Link to="./catalog">Каталог</Link>
-          <Link to="./favorites"><img src={favoriteIcon} alt="icon" /></Link>
+          <Link to="./favorites" className="header__menu-favorite">
+            <img src={favoriteIcon} alt="icon" />
+            {favoriteLength ? <span className="header__menu-favoriteLength">{favoriteLength}</span> : ''}
+          </Link>
           <Link to="./cart" className="header__menu-cart">
             <img src={cartIcon} alt="icon" />
             {cartLength ? <span className="header__menu-cartLength">{cartLength}</span> : ''}

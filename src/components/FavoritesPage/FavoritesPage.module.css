@@ -1,9 +1,12 @@
-.favorites {
-  font-size: 30px;
-}
-.favorites__container {
-  max-width: 1200px;
-  padding: 0 15px;
-  margin: 0 auto;
+.favorites__title {
+  font-size: 44px;
   text-align: center;
+  margin-bottom: 30px;
+}
+.favorites__content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }
