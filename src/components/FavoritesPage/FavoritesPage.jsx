@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useQuery } from '@tanstack/react-query'
 import { getFavoriteSelector } from '../../redux/slices/favoriteSlice'
@@ -31,7 +32,10 @@ function FavoritesInner({ products }) {
   }
   return (
     <section className={FavoritesStyles.favorites}>
-      <div className={FavoritesStyles.favorites__title}>Избранное</div>
+      <div className={FavoritesStyles.favorites__title}>
+        У вас нету избранных товаров
+        <p><Link to="../products">Каталог</Link></p>
+      </div>
     </section>
   )
 }

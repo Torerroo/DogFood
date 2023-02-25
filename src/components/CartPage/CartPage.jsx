@@ -38,7 +38,7 @@ function CartPageInner({
         <div className="cart__container-empty">
           <h1>Корзина пуста</h1>
           <Link to="/">На главную</Link>
-          <Link to="/catalog">Каталог</Link>
+          <Link to="/products">Каталог</Link>
         </div>
       </section>
     )

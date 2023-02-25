@@ -13,6 +13,7 @@ import { CartPage } from './components/CartPage/CartPage'
 import { Catalog } from './components/Catalog/Catalog'
 import { AccountPage } from './components/AccountPage/AccountPage'
 import { FavoritesPage } from './components/FavoritesPage/FavoritesPage'
+import { ProductDetail } from './components/ProductDetail/ProductDetail'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const queryClient = new QueryClient({
@@ -41,8 +42,12 @@ const router = createBrowserRouter(
           element: <SignInPage />,
         },
         {
-          path: 'catalog',
+          path: 'products',
           element: <Catalog />,
+        },
+        {
+          path: 'products/:productID',
+          element: <ProductDetail />,
         },
         {
           path: 'cart',

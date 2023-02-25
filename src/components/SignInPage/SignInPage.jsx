@@ -38,7 +38,7 @@ export function SignInPage() {
 
   const submitHandler = async (values) => {
     await mutateAsync(values)
-    setTimeout(() => navigate('/catalog'))
+    setTimeout(() => navigate('/products'))
   }
 
   return (

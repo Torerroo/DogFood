@@ -4,6 +4,7 @@
 import './ProductItem.css'
 import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
+import { Link, useParams } from 'react-router-dom'
 import { addNewProductInCart, deleteProductInCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
 import cartIcon from '../Header/icons/cart.png'
 import checkIcon from '../Header/icons/check.png'
@@ -62,6 +63,7 @@ export function ProductItem({
             ? <button className="product-list-btn-favorite" onClick={deleteProductInFavoriteHandler} type="button"><img src={favoriteIcon} alt="icon" /></button>
             : <button className="product-list-btn-favorite" onClick={addNewProductInFavoriteHandler} type="button"><img src={favoriteIcon2} alt="icon" /></button>}
         </div>
+        <Link to={id}>Подробнее</Link>
       </div>
     </div>
   )

@@ -1,7 +1,11 @@
 .favorites__title {
-  font-size: 44px;
+  font-size: 36px;
   text-align: center;
   margin-bottom: 30px;
+}
+.favorites__title p {
+  margin-top: 20px;
+  font-size: 24px;
 }
 .favorites__content {
   display: flex;

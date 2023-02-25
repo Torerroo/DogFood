@@ -13,7 +13,7 @@ import { getFavoriteSelector } from '../../redux/slices/favoriteSlice'
 export function Header() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const match = useMatch('/catalog')
+  const match = useMatch('/products')
   const { token } = useSelector(getUserInfoSelector)
   const cart = useSelector(getCartProductsSelector)
   const favorite = useSelector(getFavoriteSelector)
@@ -31,7 +31,7 @@ export function Header() {
         <Logo />
         {searchVisable ? <Search /> : ''}
         <div className="header__container-menu">
-          <Link to="./catalog">Каталог</Link>
+          <Link to="./products">Каталог</Link>
           <Link to="./favorites" className="header__menu-favorite">
             <img src={favoriteIcon} alt="icon" />
             {favoriteLength ? <span className="header__menu-favoriteLength">{favoriteLength}</span> : ''}
