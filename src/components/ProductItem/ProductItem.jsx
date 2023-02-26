@@ -63,7 +63,7 @@ export function ProductItem({
             ? <button className="product-list-btn-favorite" onClick={deleteProductInFavoriteHandler} type="button"><img src={favoriteIcon} alt="icon" /></button>
             : <button className="product-list-btn-favorite" onClick={addNewProductInFavoriteHandler} type="button"><img src={favoriteIcon2} alt="icon" /></button>}
         </div>
-        <Link to={id}>Подробнее</Link>
+        <Link to={`../products/${id}`}>Подробнее</Link>
       </div>
     </div>
   )
