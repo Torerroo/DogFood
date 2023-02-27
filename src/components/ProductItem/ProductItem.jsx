@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable no-unused-vars */
 import './ProductItem.css'
 import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { addNewProductInCart, deleteProductInCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
 import cartIcon from '../Header/icons/cart.png'
 import checkIcon from '../Header/icons/check.png'
@@ -16,12 +13,11 @@ export function ProductItem({
   id, name, pictures, price, discount,
 }) {
   const dispatch = useDispatch()
-
   const cartProduct = useSelector(getCartProductsSelector)
   const favoriteProduct = useSelector(getFavoriteSelector)
 
   const addNewProductInCartHandler = () => {
-    dispatch(addNewProductInCart({ id }))
+    dispatch(addNewProductInCart(id))
   }
   const deleteProductInCartHandler = () => {
     dispatch(deleteProductInCart(id))
@@ -57,13 +53,15 @@ export function ProductItem({
         </div>
         <div className="product-list-buttons">
           {checkProductInCart
-            ? <button className="product-list-btn-cart" type="button"><img src={checkIcon} onClick={deleteProductInCartHandler} alt="icon" /></button>
-            : <button className="product-list-btn-cart" type="button"><img src={cartIcon} onClick={addNewProductInCartHandler} alt="icon" /></button>}
+            ? <button className="product-list-btn-cart" onClick={deleteProductInCartHandler} type="button"><img src={checkIcon} alt="icon" /></button>
+            : <button className="product-list-btn-cart" onClick={addNewProductInCartHandler} type="button"><img src={cartIcon} alt="icon" /></button>}
           {checkProductInFavorite
             ? <button className="product-list-btn-favorite" onClick={deleteProductInFavoriteHandler} type="button"><img src={favoriteIcon} alt="icon" /></button>
             : <button className="product-list-btn-favorite" onClick={addNewProductInFavoriteHandler} type="button"><img src={favoriteIcon2} alt="icon" /></button>}
         </div>
-        <Link to={`../products/${id}`}>Подробнее</Link>
+        <div className="product-list-btn-detail">
+          <Link to={`../products/${id}`}><button type="button">Подробнее</button></Link>
+        </div>
       </div>
     </div>
   )

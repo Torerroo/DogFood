@@ -59,6 +59,14 @@ class DogFoodApi {
     }).then((res) => res.json())))
   }
 
+  getProductsById(id, token) {
+    return fetch(`${this.baseURL}/products/${id}`, {
+      headers: {
+        authorization: this.getAuthorizationToken(token),
+      },
+    }).then((res) => res.json())
+  }
+
   async getAllProducts(search, token) {
     this.checkToken(token)
     const res = await fetch(`${this.baseURL}/products?query=${search}`, {

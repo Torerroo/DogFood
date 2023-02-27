@@ -15,7 +15,7 @@ export const SALES_FILTER = {
 }
 
 export const DATA_FILTER = {
-  type: [OLD_DATA, NEW_DATA],
+  type: [NEW_DATA, OLD_DATA],
   name: 'Дата',
 }
 

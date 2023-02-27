@@ -7,7 +7,7 @@ const cartSlice = createSlice({
   reducers: {
     addNewProductInCart(state, action) {
       const newProduct = {
-        [action.payload.id]: {
+        [action.payload]: {
           count: 1,
           isChecked: true,
         },
