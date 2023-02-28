@@ -4,11 +4,13 @@
   justify-content: center;
   margin-bottom: 15px;
 }
-.container {
+.containerInfo {
   display: flex;
   justify-content: center;
   font-size: 24px;
   gap: 15px;
+  width: 800px;
+  margin: 0 auto 15px auto;
 }
 .containerLeft img {
   width: 300px;
@@ -18,7 +20,6 @@
 }
 .list {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .price {
@@ -30,31 +31,53 @@
 .list button {
   background: #fff;
 }
+.list button:last-child {
+  background-color: rgb(263, 195, 0);
+}
 .buttons {
   display: flex;
   align-items: center;
 }
-.btn_cart_before_click {
+.btn_cart_click {
   border: 1px solid;
   padding: 10px;
   border-radius: 8px;
   margin-left: 10px;
-  transition: all 0.2s;
-}
-.btn_cart_before_click:hover {
+  transition: all 0.1s;
   background-color: rgb(263, 195, 0);
 }
-.btn_cart_after_click {
+.btn_cart_click:hover {
+  box-shadow: 0px 0px 5px;
+}
+.containerComments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 800px;
+  margin: 0 auto;
+}
+.containerComments h3 {
+  font-size: 28px;
+}
+.containerComments div {
   border: 1px solid;
-  padding: 10px;
   border-radius: 8px;
-  margin-left: 10px;
-  background-color: rgb(263, 195, 0);
+  padding: 10px 10px 0 10px;
+  font-size: 16px;
 }
-.btn_cart_after_click button {
-  background-color: rgb(263, 195, 0);
-  color: white;
+.containerComments div span {
+  font-size: 20px;
 }
-.btn_cart_after_click:hover {
+.containerComments button {
+  font-size: 24px;
+  display: inline-block;
+  width: 200px;
+  background-color: rgb(263, 195, 0);
+  border-radius: 8px;
+  border: 1px solid black;
+  padding: 5px;
+  transition: all 0.1s;
+}
+.containerComments button:hover {
   box-shadow: 0px 0px 5px black;
 }

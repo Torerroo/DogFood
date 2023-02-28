@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
@@ -43,7 +44,7 @@ export function ProductDetail() {
     return (
       <section className={styleProductDetail.ProductDetail}>
         <h1 className={styleProductDetail.title}>{product.name}</h1>
-        <div className={styleProductDetail.container}>
+        <div className={styleProductDetail.containerInfo}>
           <div className={styleProductDetail.containerLeft}>
             <img src={product.pictures} alt="pictures" />
           </div>
@@ -86,11 +87,41 @@ export function ProductDetail() {
                   ? <button onClick={deleteProductInFavoriteHandler} type="button"><img width="50px" src={favoriteIcon} alt="icon" /></button>
                   : <button onClick={addNewProductInFavoriteHandler} type="button"><img width="50px" src={favoriteIcon2} alt="icon" /></button>}
                 {checkProductInCart
-                  ? <Link className={styleProductDetail.btn_cart_after_click} to="../cart"><button type="button">В корзине</button></Link>
-                  : <button className={styleProductDetail.btn_cart_before_click} onClick={addNewProductInCartHandler} type="button">Купить</button>}
+                  ? <Link className={styleProductDetail.btn_cart_click} to="../cart"><button type="button">В корзине</button></Link>
+                  : <button className={styleProductDetail.btn_cart_click} onClick={addNewProductInCartHandler} type="button">Купить</button>}
               </div>
             </div>
           </div>
+        </div>
+        <div className={styleProductDetail.containerComments}>
+          <h3>
+            Отзывы о
+            {' '}
+            &quot;
+            {product.name}
+            &quot;
+          </h3>
+          <button type="button">Оставить отзыв</button>
+          {product.reviews.map((review) => (
+            <div key={review._id}>
+              <p>
+                <span>Пользователь:</span>
+                {' '}
+                {review.author}
+              </p>
+              <p>
+                <span>Рейтинг:</span>
+                {' '}
+                {review.rating}
+                /5
+              </p>
+              <p>
+                <span>Комментарий:</span>
+                {' '}
+                {review.text}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
     )
