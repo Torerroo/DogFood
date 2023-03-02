@@ -3,6 +3,7 @@ const HIGH_PRICE = 'HIGH_PRICE'
 const OLD_DATA = 'OLD_DATA'
 const NEW_DATA = 'NEW_DATA'
 const SALES = 'SALES'
+const POPULAR = 'POPULAR'
 
 export const PRICE_FILTER = {
   type: [LOW_PRICE, HIGH_PRICE],
@@ -19,6 +20,11 @@ export const DATA_FILTER = {
   name: 'Дата',
 }
 
+export const POPULAR_FILTER = {
+  type: POPULAR,
+  name: 'Популярные',
+}
+
 export const FILTER_QUERY_NAME = 'filterType'
 
 export const getFilteredProducts = ([...products], filterType) => {
@@ -33,6 +39,8 @@ export const getFilteredProducts = ([...products], filterType) => {
       return products.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at))
     case SALES:
       return products.filter((product) => !!product.discount)
+    case POPULAR:
+      return products.sort((a, b) => b.reviews.length - a.reviews.length)
     default:
       return products
   }
