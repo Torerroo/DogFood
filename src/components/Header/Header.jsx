@@ -9,6 +9,7 @@ import { getUserInfoSelector, resetUserInfo } from '../../redux/slices/userInfoS
 import { Search } from '../Search/Search'
 import { getCartProductsSelector } from '../../redux/slices/cartSlice'
 import { getFavoriteSelector } from '../../redux/slices/favoriteSlice'
+import { Modal } from '../Modal/Modal'
 
 export function Header() {
   const navigate = useNavigate()
@@ -27,6 +28,9 @@ export function Header() {
   }
   return (
     <header className="header">
+      <Modal>
+        <div>11111111111111111111111111111111111111111</div>
+      </Modal>
       <div className="header__container">
         <Logo />
         {searchVisable ? <Search /> : ''}

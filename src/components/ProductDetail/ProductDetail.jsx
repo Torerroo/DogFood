@@ -1,11 +1,11 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-underscore-dangle */
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import classNames from 'classnames'
+import { useState } from 'react'
 import { getUserInfoSelector } from '../../redux/slices/userInfoSlice'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import styleProductDetail from './ProductDetail.module.css'
@@ -13,34 +13,35 @@ import { addFavoriteProduct, deleteFavoriteProduct, getFavoriteSelector } from '
 import favoriteIcon from '../Header/icons/favorite.png'
 import favoriteIcon2 from '../Header/icons/favorite2.png'
 import { addNewProductInCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
+import { withQuery } from '../HOCs/withQuery'
+import { Modal } from '../Modal/Modal'
 
-export function ProductDetail() {
-  const { productID } = useParams()
-  const dispatch = useDispatch()
-  const { token } = useSelector(getUserInfoSelector)
-  const favoriteProduct = useSelector(getFavoriteSelector)
-  const cartProduct = useSelector(getCartProductsSelector)
-  const checkProductInFavorite = favoriteProduct.find((id) => id === productID)
-  const checkProductInCart = Object.keys(cartProduct).find((id) => id === productID)
-  const addNewProductInCartHandler = () => {
-    dispatch(addNewProductInCart(productID))
+function ProductDetailInner({
+  product,
+  reviews,
+  addNewProductInCartHandler,
+  addNewProductInFavoriteHandler,
+  deleteProductInFavoriteHandler,
+  checkProductInFavorite,
+  checkProductInCart,
+}) {
+  const dataReview = (currentData) => {
+    const data = currentData.slice(0, 10)
+    return data
   }
-  const addNewProductInFavoriteHandler = () => {
-    dispatch(addFavoriteProduct(productID))
+  const [isAddNewReviewModalOpen, setIsAddNewReviewModalOpen] = useState(false)
+
+  const closeAddNewReviewModalHandler = () => {
+    setIsAddNewReviewModalOpen(false)
   }
-  const deleteProductInFavoriteHandler = () => {
-    dispatch(deleteFavoriteProduct(productID))
+  const openAddNewReviewModalHandler = () => {
+    setIsAddNewReviewModalOpen(true)
   }
-  const { data: product } = useQuery({
-    queryKey: ['product', productID],
-    queryFn: () => dogFoodApi.getProductsById(productID, token),
-    enabled: !!token,
-  })
-  if (product) {
+
+  if (product && reviews) {
     const sumAllRating = product.reviews.reduce((accumulator, currentValue) => accumulator + +currentValue.rating, 0)
     const middleProcentRating = sumAllRating / product.reviews.length
     const discountPrice = product.price * ((100 - product.discount) / 100)
-
     return (
       <section className={styleProductDetail.ProductDetail}>
         <h1 className={styleProductDetail.title}>{product.name}</h1>
@@ -94,6 +95,9 @@ export function ProductDetail() {
           </div>
         </div>
         <div className={styleProductDetail.containerComments}>
+          <Modal isOpen={isAddNewReviewModalOpen} closeHandler={closeAddNewReviewModalHandler}>
+            <div>тут будет форма</div>
+          </Modal>
           <h3>
             Отзывы о
             {' '}
@@ -101,13 +105,13 @@ export function ProductDetail() {
             {product.name}
             &quot;
           </h3>
-          <button type="button">Оставить отзыв</button>
-          {product.reviews.map((review) => (
+          <button onClick={openAddNewReviewModalHandler} type="button">Оставить отзыв</button>
+          {[...reviews].reverse().map((review) => (
             <div key={review._id}>
               <p>
                 <span>Пользователь:</span>
                 {' '}
-                {review.author}
+                {review.author.name}
               </p>
               <p>
                 <span>Рейтинг:</span>
@@ -120,10 +124,66 @@ export function ProductDetail() {
                 {' '}
                 {review.text}
               </p>
+              <p className={styleProductDetail.dataReview}>{dataReview(review.created_at)}</p>
             </div>
           ))}
         </div>
       </section>
     )
   }
+}
+
+const ProductDetailWithQuery = withQuery(ProductDetailInner)
+
+export function ProductDetail() {
+  const { productID } = useParams()
+  const dispatch = useDispatch()
+  const { token } = useSelector(getUserInfoSelector)
+  const favoriteProduct = useSelector(getFavoriteSelector)
+  const cartProduct = useSelector(getCartProductsSelector)
+  const checkProductInFavorite = favoriteProduct.find((id) => id === productID)
+  const checkProductInCart = Object.keys(cartProduct).find((id) => id === productID)
+
+  const addNewProductInCartHandler = () => {
+    dispatch(addNewProductInCart(productID))
+  }
+  const addNewProductInFavoriteHandler = () => {
+    dispatch(addFavoriteProduct(productID))
+  }
+  const deleteProductInFavoriteHandler = () => {
+    dispatch(deleteFavoriteProduct(productID))
+  }
+  const { data: product, isLoading } = useQuery({
+    queryKey: ['product', productID],
+    queryFn: () => dogFoodApi.getProductsById(productID, token),
+    enabled: !!token,
+  })
+  const { data: reviews } = useQuery({
+    queryKey: ['reviews', productID],
+    queryFn: () => dogFoodApi.getAllReviewsByProductId(productID, token),
+    enabled: !!token,
+  })
+
+  const {
+    mutateAsync: addNewReview,
+  } = useMutation({
+    mutationFn: (values) => dogFoodApi.addProductReviewById(productID, token, values),
+  })
+
+  // const addNewReviewNHandler = async (values) => {
+  //   await addNewReview(values)
+  // }
+
+  return (
+    <ProductDetailWithQuery
+      isLoading={isLoading}
+      product={product}
+      reviews={reviews}
+      checkProductInFavorite={checkProductInFavorite}
+      checkProductInCart={checkProductInCart}
+      addNewProductInCartHandler={addNewProductInCartHandler}
+      addNewProductInFavoriteHandler={addNewProductInFavoriteHandler}
+      deleteProductInFavoriteHandler={deleteProductInFavoriteHandler}
+    />
+  )
 }

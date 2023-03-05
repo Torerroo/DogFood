@@ -81,3 +81,7 @@
 .containerComments button:hover {
   box-shadow: 0px 0px 5px black;
 }
+.dataReview {
+  font-size: 12px;
+  opacity: 0.8;
+}

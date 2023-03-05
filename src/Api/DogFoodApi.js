@@ -67,6 +67,14 @@ class DogFoodApi {
     }).then((res) => res.json())
   }
 
+  getAllReviewsByProductId(id, token) {
+    return fetch(`${this.baseURL}/products/review/${id}`, {
+      headers: {
+        authorization: this.getAuthorizationToken(token),
+      },
+    }).then((res) => res.json())
+  }
+
   async getAllProducts(search, token) {
     this.checkToken(token)
     const res = await fetch(`${this.baseURL}/products?query=${search}`, {
@@ -74,6 +82,30 @@ class DogFoodApi {
         authorization: this.getAuthorizationToken(token),
       },
     })
+    return res.json()
+  }
+
+  async addProductReviewById(id, token, values) {
+    this.checkToken(token)
+    const res = await fetch(`${this.baseUrl}/products/review/${id}`, {
+      method: 'POST',
+      headers: {
+        authorization: this.getAuthorizationToken(token),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+
+    if (res.status >= 400 && res.status < 500) {
+      throw new Error(`Произошла ошибка при добавлении отзыва к продукту.
+      Проверьте отправляемые данные. Status: ${res.status}`)
+    }
+
+    if (res.status >= 500) {
+      throw new Error(`Произошла ошибка при получении ответа от сервера. 
+      Попробуйте сделать запрос позже. Status: ${res.status}`)
+    }
+
     return res.json()
   }
 }
