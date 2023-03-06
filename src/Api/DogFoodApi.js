@@ -87,7 +87,7 @@ class DogFoodApi {
 
   async addProductReviewById(id, token, values) {
     this.checkToken(token)
-    const res = await fetch(`${this.baseUrl}/products/review/${id}`, {
+    const res = await fetch(`https://api.react-learning.ru/products/review/${id}`, {
       method: 'POST',
       headers: {
         authorization: this.getAuthorizationToken(token),

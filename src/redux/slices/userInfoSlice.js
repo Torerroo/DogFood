@@ -23,6 +23,9 @@ const userInfoSlice = createSlice({
     setUserAbout(state, action) {
       state.about = action.payload
     },
+    setUserId(state, action) {
+      state.id = action.payload
+    },
     resetUserInfo() {
       return initState.user
     },
@@ -31,6 +34,7 @@ const userInfoSlice = createSlice({
 
 export const {
   setUserToken, setUserName, setUserEmail, setUserGroup, setUserAvatar, resetUserInfo, setUserAbout,
+  setUserId,
 } = userInfoSlice.actions
 
 export const getUserInfoSelector = (state) => state.user

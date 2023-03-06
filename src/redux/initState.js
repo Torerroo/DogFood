@@ -8,6 +8,7 @@ export const initState = {
     group: '',
     avatar: '',
     about: '',
+    id: '',
   },
   filter: {
     search: '',

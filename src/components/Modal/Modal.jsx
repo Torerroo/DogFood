@@ -38,7 +38,7 @@ export function Modal({ isOpen, closeHandler, children }) {
   }
 
   return createPortal(
-    <div className="modalWr" onClick={closeModalByClickWrapper}>
+    <div className="modalWr" onMouseDown={closeModalByClickWrapper}>
       <ModalInner closeHandler={closeHandler}>
         {children}
       </ModalInner>

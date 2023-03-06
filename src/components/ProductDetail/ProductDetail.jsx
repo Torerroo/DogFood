@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { getUserInfoSelector } from '../../redux/slices/userInfoSlice'
@@ -14,7 +13,8 @@ import favoriteIcon from '../Header/icons/favorite.png'
 import favoriteIcon2 from '../Header/icons/favorite2.png'
 import { addNewProductInCart, getCartProductsSelector } from '../../redux/slices/cartSlice'
 import { withQuery } from '../HOCs/withQuery'
-import { Modal } from '../Modal/Modal'
+import { AddNewReviewModal } from './AddNewReviewModal/AddNewReviewModal'
+import basket from '../Header/icons/basket.png'
 
 function ProductDetailInner({
   product,
@@ -24,6 +24,7 @@ function ProductDetailInner({
   deleteProductInFavoriteHandler,
   checkProductInFavorite,
   checkProductInCart,
+  user,
 }) {
   const dataReview = (currentData) => {
     const data = currentData.slice(0, 10)
@@ -31,9 +32,6 @@ function ProductDetailInner({
   }
   const [isAddNewReviewModalOpen, setIsAddNewReviewModalOpen] = useState(false)
 
-  const closeAddNewReviewModalHandler = () => {
-    setIsAddNewReviewModalOpen(false)
-  }
   const openAddNewReviewModalHandler = () => {
     setIsAddNewReviewModalOpen(true)
   }
@@ -95,9 +93,6 @@ function ProductDetailInner({
           </div>
         </div>
         <div className={styleProductDetail.containerComments}>
-          <Modal isOpen={isAddNewReviewModalOpen} closeHandler={closeAddNewReviewModalHandler}>
-            <div>тут будет форма</div>
-          </Modal>
           <h3>
             Отзывы о
             {' '}
@@ -105,9 +100,9 @@ function ProductDetailInner({
             {product.name}
             &quot;
           </h3>
-          <button onClick={openAddNewReviewModalHandler} type="button">Оставить отзыв</button>
+          <button onClick={openAddNewReviewModalHandler} type="button">Добавить отзыв</button>
           {[...reviews].reverse().map((review) => (
-            <div key={review._id}>
+            <div className={styleProductDetail.reviewsList} key={review._id}>
               <p>
                 <span>Пользователь:</span>
                 {' '}
@@ -125,9 +120,14 @@ function ProductDetailInner({
                 {review.text}
               </p>
               <p className={styleProductDetail.dataReview}>{dataReview(review.created_at)}</p>
+              {review.author._id === user.id ? <span className={styleProductDetail.deleteReview}><img src={basket} alt="basket" /></span> : ''}
             </div>
           ))}
         </div>
+        <AddNewReviewModal
+          isAddNewReviewModalOpen={isAddNewReviewModalOpen}
+          setIsAddNewReviewModalOpen={setIsAddNewReviewModalOpen}
+        />
       </section>
     )
   }
@@ -139,6 +139,7 @@ export function ProductDetail() {
   const { productID } = useParams()
   const dispatch = useDispatch()
   const { token } = useSelector(getUserInfoSelector)
+  const user = useSelector(getUserInfoSelector)
   const favoriteProduct = useSelector(getFavoriteSelector)
   const cartProduct = useSelector(getCartProductsSelector)
   const checkProductInFavorite = favoriteProduct.find((id) => id === productID)
@@ -164,16 +165,6 @@ export function ProductDetail() {
     enabled: !!token,
   })
 
-  const {
-    mutateAsync: addNewReview,
-  } = useMutation({
-    mutationFn: (values) => dogFoodApi.addProductReviewById(productID, token, values),
-  })
-
-  // const addNewReviewNHandler = async (values) => {
-  //   await addNewReview(values)
-  // }
-
   return (
     <ProductDetailWithQuery
       isLoading={isLoading}
@@ -184,6 +175,7 @@ export function ProductDetail() {
       addNewProductInCartHandler={addNewProductInCartHandler}
       addNewProductInFavoriteHandler={addNewProductInFavoriteHandler}
       deleteProductInFavoriteHandler={deleteProductInFavoriteHandler}
+      user={user}
     />
   )
 }

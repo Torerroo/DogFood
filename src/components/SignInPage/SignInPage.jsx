@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { useMutation } from '@tanstack/react-query'
 import {
   Formik, Form, Field, ErrorMessage,
@@ -9,7 +10,7 @@ import { validatorSignIn } from './validatorSignIn'
 import { dogFoodApi } from '../../Api/DogFoodApi'
 import {
   setUserAbout,
-  setUserAvatar, setUserEmail, setUserGroup, setUserName, setUserToken,
+  setUserAvatar, setUserEmail, setUserGroup, setUserId, setUserName, setUserToken,
 } from '../../redux/slices/userInfoSlice'
 
 const initialValues = {
@@ -33,6 +34,7 @@ export function SignInPage() {
         dispatch(setUserGroup(res.data.group))
         dispatch(setUserAvatar(res.data.avatar))
         dispatch(setUserAbout(res.data.about))
+        dispatch(setUserId(res.data._id))
       }),
   })
 
