@@ -108,6 +108,17 @@ class DogFoodApi {
 
     return res.json()
   }
+
+  async deleteProductReviewById(productID, reviewID, token) {
+    this.checkToken(token)
+    const res = await fetch(`https://api.react-learning.ru/products/review/${productID}/${reviewID}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this.getAuthorizationToken(token),
+      },
+    })
+    return res.json()
+  }
 }
 
 export const dogFoodApi = new DogFoodApi({ baseURL: 'https://api.react-learning.ru' })

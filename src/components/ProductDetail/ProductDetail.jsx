@@ -2,7 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useState } from 'react'
 import { getUserInfoSelector } from '../../redux/slices/userInfoSlice'
@@ -25,6 +25,7 @@ function ProductDetailInner({
   checkProductInFavorite,
   checkProductInCart,
   user,
+  deleteReviewHandler,
 }) {
   const dataReview = (currentData) => {
     const data = currentData.slice(0, 10)
@@ -120,7 +121,7 @@ function ProductDetailInner({
                 {review.text}
               </p>
               <p className={styleProductDetail.dataReview}>{dataReview(review.created_at)}</p>
-              {review.author._id === user.id ? <span className={styleProductDetail.deleteReview}><img src={basket} alt="basket" /></span> : ''}
+              {review.author._id === user.id ? <span onClick={() => deleteReviewHandler(review._id)} className={styleProductDetail.deleteReview}><img src={basket} alt="basket" /></span> : ''}
             </div>
           ))}
         </div>
@@ -142,6 +143,8 @@ export function ProductDetail() {
   const user = useSelector(getUserInfoSelector)
   const favoriteProduct = useSelector(getFavoriteSelector)
   const cartProduct = useSelector(getCartProductsSelector)
+  const queryClient = useQueryClient()
+
   const checkProductInFavorite = favoriteProduct.find((id) => id === productID)
   const checkProductInCart = Object.keys(cartProduct).find((id) => id === productID)
 
@@ -164,6 +167,14 @@ export function ProductDetail() {
     queryFn: () => dogFoodApi.getAllReviewsByProductId(productID, token),
     enabled: !!token,
   })
+  const { mutateAsync: deleteReviewById } = useMutation({
+    mutationFn: (reviewID) => dogFoodApi.deleteProductReviewById(productID, reviewID, token),
+  })
+
+  const deleteReviewHandler = async (reviewID) => {
+    await deleteReviewById(reviewID)
+    queryClient.invalidateQueries(['reviews'])
+  }
 
   return (
     <ProductDetailWithQuery
@@ -176,6 +187,7 @@ export function ProductDetail() {
       addNewProductInFavoriteHandler={addNewProductInFavoriteHandler}
       deleteProductInFavoriteHandler={deleteProductInFavoriteHandler}
       user={user}
+      deleteReviewHandler={deleteReviewHandler}
     />
   )
 }
