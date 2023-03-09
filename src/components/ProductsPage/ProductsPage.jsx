@@ -60,7 +60,6 @@ export function ProductsPage() {
   })
 
   let { products } = data
-
   if (products) {
     if (currentFilterNameFromQuery) {
       products = getFilteredProducts(products, currentFilterNameFromQuery)

@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   changeStatusIsChecked,
-  countDecrement, countIncrement, deleteProductInCart, getCartProductsSelector,
+  countDecrement, countIncrement, getCartProductsSelector,
 } from '../../redux/slices/cartSlice'
 import './CartItem.css'
+import { DeleteProductFromCartModal } from './DeleteProductFromCartModal/DeleteProductFromCartModal'
 
 export function CartItem({
   name, pictures, price, wight, stock, discount, description, id,
@@ -15,6 +17,12 @@ export function CartItem({
   const { isChecked } = cart[id]
 
   const dispatch = useDispatch()
+
+  const [isDeleteProductFromCartModalOpen, setIsDeleteProductFromCartModalOpen] = useState(false)
+
+  const openDeleteProductFromCartModalHandler = () => {
+    setIsDeleteProductFromCartModalOpen(true)
+  }
 
   const countIncrementHandler = () => {
     if (count < stock) {
@@ -29,7 +37,7 @@ export function CartItem({
 
   const countDecrementHandler = () => {
     if (count === 1) {
-      return dispatch(deleteProductInCart(id))
+      return openDeleteProductFromCartModalHandler()
     }
     return dispatch(countDecrement(id))
   }
@@ -92,6 +100,11 @@ export function CartItem({
       <div className="cart-item-checkbox">
         <input type="checkbox" onChange={changeStatusCheckbox} checked={isChecked} />
       </div>
+      <DeleteProductFromCartModal
+        isDeleteProductFromCartModalOpen={isDeleteProductFromCartModalOpen}
+        setIsDeleteProductFromCartModalOpen={setIsDeleteProductFromCartModalOpen}
+        id={id}
+      />
     </div>
   )
 }

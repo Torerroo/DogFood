@@ -35,6 +35,9 @@
     .header__container-menu img {
       width: 35px;
     }
+    .header__container-menu a.active {
+      scale: 1.1;
+    }
 
   .header__menu-cart {
     position: relative;

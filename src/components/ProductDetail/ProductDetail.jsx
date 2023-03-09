@@ -2,7 +2,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable max-len */
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useState } from 'react'
@@ -17,6 +17,7 @@ import { withQuery } from '../HOCs/withQuery'
 import { AddNewReviewModal } from './AddNewReviewModal/AddNewReviewModal'
 import basket from '../Header/icons/basket.png'
 import { DeleteProductModal } from './DeleteProductModal/DeleteProductModal'
+import { EditProductModal } from './EditProductModal/EditProductModal'
 
 function ProductDetailInner({
   product,
@@ -28,7 +29,6 @@ function ProductDetailInner({
   checkProductInCart,
   user,
   deleteReviewHandler,
-  deleteProductByIDHandler,
 }) {
   const dataReview = (currentData) => {
     const data = currentData.slice(0, 10)
@@ -36,6 +36,7 @@ function ProductDetailInner({
   }
   const [isAddNewReviewModalOpen, setIsAddNewReviewModalOpen] = useState(false)
   const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false)
+  const [isEditProductModalOpen, setIsEditProductModalOpen] = useState(false)
 
   const openAddNewReviewModalHandler = () => {
     setIsAddNewReviewModalOpen(true)
@@ -43,7 +44,9 @@ function ProductDetailInner({
   const openDeleteProductModalHandler = () => {
     setIsDeleteProductModalOpen(true)
   }
-
+  const openEditProductModalHandler = () => {
+    setIsEditProductModalOpen(true)
+  }
   if (product && reviews) {
     const sumAllRating = product.reviews.reduce((accumulator, currentValue) => accumulator + +currentValue.rating, 0)
     const middleProcentRating = sumAllRating / product.reviews.length
@@ -102,7 +105,7 @@ function ProductDetailInner({
             </div>
             <div className={styleProductDetail.Host_buttons}>
               {product.author._id === user.id ? <button type="button" onClick={openDeleteProductModalHandler}>Удалить товар</button> : ''}
-              {product.author._id === user.id ? <button type="button">Редактировать</button> : ''}
+              {product.author._id === user.id ? <button type="button" onClick={openEditProductModalHandler}>Редактировать</button> : ''}
             </div>
           </div>
         </div>
@@ -145,7 +148,13 @@ function ProductDetailInner({
         <DeleteProductModal
           isDeleteProductModalOpen={isDeleteProductModalOpen}
           setIsDeleteProductModalOpen={setIsDeleteProductModalOpen}
-          deleteProductByIDHandler={deleteProductByIDHandler}
+          checkProductInFavorite={checkProductInFavorite}
+          checkProductInCart={checkProductInCart}
+        />
+        <EditProductModal
+          isEditProductModalOpen={isEditProductModalOpen}
+          setIsEditProductModalOpen={setIsEditProductModalOpen}
+          product={product}
         />
       </section>
     )
@@ -159,10 +168,9 @@ export function ProductDetail() {
   const dispatch = useDispatch()
   const { token } = useSelector(getUserInfoSelector)
   const user = useSelector(getUserInfoSelector)
+  const queryClient = useQueryClient()
   const favoriteProduct = useSelector(getFavoriteSelector)
   const cartProduct = useSelector(getCartProductsSelector)
-  const queryClient = useQueryClient()
-  const navigate = useNavigate()
 
   const checkProductInFavorite = favoriteProduct.find((id) => id === productID)
   const checkProductInCart = Object.keys(cartProduct).find((id) => id === productID)
@@ -196,15 +204,6 @@ export function ProductDetail() {
     queryClient.invalidateQueries(['reviews'])
   }
 
-  const { mutateAsync: deleteProductByID } = useMutation({
-    mutationFn: (productID) => dogFoodApi.deleteProductById(productID, token),
-  })
-
-  const deleteProductByIDHandler = async () => {
-    await deleteProductByID(productID)
-    navigate('/products')
-  }
-
   return (
     <ProductDetailWithQuery
       isLoading={isLoading}
@@ -217,7 +216,6 @@ export function ProductDetail() {
       deleteProductInFavoriteHandler={deleteProductInFavoriteHandler}
       user={user}
       deleteReviewHandler={deleteReviewHandler}
-      deleteProductByIDHandler={deleteProductByIDHandler}
     />
   )
 }

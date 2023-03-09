@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import './Header.css'
-import { Link, useNavigate, useMatch } from 'react-router-dom'
+import {
+  useNavigate, useMatch, NavLink,
+} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Logo } from '../Logo/Logo'
@@ -51,17 +53,17 @@ export function Header() {
               alt="addProduct"
             />
           ) : ''}
-          <Link to="./products">Каталог</Link>
-          <Link to="./favorites" className="header__menu-favorite">
+          <NavLink to="./products">Каталог</NavLink>
+          <NavLink to="./favorites" className="header__menu-favorite">
             <img src={favoriteIcon} alt="icon" />
             {favoriteLength ? <span className="header__menu-favoriteLength">{favoriteLength}</span> : ''}
-          </Link>
-          <Link to="./cart" className="header__menu-cart">
+          </NavLink>
+          <NavLink to="./cart" className="header__menu-cart">
             <img src={cartIcon} alt="icon" />
             {cartLength ? <span className="header__menu-cartLength">{cartLength}</span> : ''}
-          </Link>
-          {token ? <Link to="./account"><img src={account} alt="account" /></Link> : <Link to="./signup">Регистрация</Link>}
-          <Link onClick={logoutHandler} to="./signin">{token ? 'Выход' : 'Вход'}</Link>
+          </NavLink>
+          {token ? <NavLink to="./account"><img src={account} alt="account" /></NavLink> : <NavLink to="./signup">Регистрация</NavLink>}
+          <NavLink onClick={logoutHandler} to="./signin">{token ? 'Выход' : 'Вход'}</NavLink>
         </div>
       </div>
       <AddNewProductModal
