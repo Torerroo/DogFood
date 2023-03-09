@@ -144,9 +144,9 @@ class DogFoodApi {
     return res.json()
   }
 
-  async deleteProduct(productID, token) {
+  async deleteProductById(productId, token) {
     this.checkToken(token)
-    const res = await fetch(`${this.baseUrl}/products/${productID}`, {
+    const res = await fetch(`https://api.react-learning.ru/products/${productId}`, {
       method: 'DELETE',
       headers: {
         authorization: this.getAuthorizationToken(token),

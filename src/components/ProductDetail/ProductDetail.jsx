@@ -1,7 +1,8 @@
-/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-shadow */
+/* eslint-disable max-len */
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useState } from 'react'
@@ -15,6 +16,7 @@ import { addNewProductInCart, getCartProductsSelector } from '../../redux/slices
 import { withQuery } from '../HOCs/withQuery'
 import { AddNewReviewModal } from './AddNewReviewModal/AddNewReviewModal'
 import basket from '../Header/icons/basket.png'
+import { DeleteProductModal } from './DeleteProductModal/DeleteProductModal'
 
 function ProductDetailInner({
   product,
@@ -26,15 +28,20 @@ function ProductDetailInner({
   checkProductInCart,
   user,
   deleteReviewHandler,
+  deleteProductByIDHandler,
 }) {
   const dataReview = (currentData) => {
     const data = currentData.slice(0, 10)
     return data
   }
   const [isAddNewReviewModalOpen, setIsAddNewReviewModalOpen] = useState(false)
+  const [isDeleteProductModalOpen, setIsDeleteProductModalOpen] = useState(false)
 
   const openAddNewReviewModalHandler = () => {
     setIsAddNewReviewModalOpen(true)
+  }
+  const openDeleteProductModalHandler = () => {
+    setIsDeleteProductModalOpen(true)
   }
 
   if (product && reviews) {
@@ -93,6 +100,10 @@ function ProductDetailInner({
                   : <button className={styleProductDetail.btn_cart_click} onClick={addNewProductInCartHandler} type="button">Купить</button>}
               </div>
             </div>
+            <div className={styleProductDetail.Host_buttons}>
+              {product.author._id === user.id ? <button type="button" onClick={openDeleteProductModalHandler}>Удалить товар</button> : ''}
+              {product.author._id === user.id ? <button type="button">Редактировать</button> : ''}
+            </div>
           </div>
         </div>
         <div className={styleProductDetail.containerComments}>
@@ -131,6 +142,11 @@ function ProductDetailInner({
           isAddNewReviewModalOpen={isAddNewReviewModalOpen}
           setIsAddNewReviewModalOpen={setIsAddNewReviewModalOpen}
         />
+        <DeleteProductModal
+          isDeleteProductModalOpen={isDeleteProductModalOpen}
+          setIsDeleteProductModalOpen={setIsDeleteProductModalOpen}
+          deleteProductByIDHandler={deleteProductByIDHandler}
+        />
       </section>
     )
   }
@@ -146,6 +162,7 @@ export function ProductDetail() {
   const favoriteProduct = useSelector(getFavoriteSelector)
   const cartProduct = useSelector(getCartProductsSelector)
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   const checkProductInFavorite = favoriteProduct.find((id) => id === productID)
   const checkProductInCart = Object.keys(cartProduct).find((id) => id === productID)
@@ -179,6 +196,15 @@ export function ProductDetail() {
     queryClient.invalidateQueries(['reviews'])
   }
 
+  const { mutateAsync: deleteProductByID } = useMutation({
+    mutationFn: (productID) => dogFoodApi.deleteProductById(productID, token),
+  })
+
+  const deleteProductByIDHandler = async () => {
+    await deleteProductByID(productID)
+    navigate('/products')
+  }
+
   return (
     <ProductDetailWithQuery
       isLoading={isLoading}
@@ -191,6 +217,7 @@ export function ProductDetail() {
       deleteProductInFavoriteHandler={deleteProductInFavoriteHandler}
       user={user}
       deleteReviewHandler={deleteReviewHandler}
+      deleteProductByIDHandler={deleteProductByIDHandler}
     />
   )
 }
