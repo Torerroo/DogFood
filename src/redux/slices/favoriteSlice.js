@@ -12,10 +12,17 @@ const favoriteSlice = createSlice({
     deleteFavoriteProduct(state, action) {
       return state.filter((product) => product !== action.payload)
     },
+    resetFavoriteInfo() {
+      return initState.favorite
+    },
   },
 })
 
-export const { addFavoriteProduct, deleteFavoriteProduct } = favoriteSlice.actions
+export const {
+  addFavoriteProduct,
+  deleteFavoriteProduct,
+  resetFavoriteInfo,
+} = favoriteSlice.actions
 
 export const getFavoriteSelector = (state) => state.favorite
 

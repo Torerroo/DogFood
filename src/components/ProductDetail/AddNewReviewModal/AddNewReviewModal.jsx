@@ -55,7 +55,7 @@ export function AddNewReviewModal({ setIsAddNewReviewModalOpen, isAddNewReviewMo
           <h2 className={styleModal.title}>Добавить отзыв</h2>
           <div className={styleModal.rating}>
             <label>Ваша оценка товару</label>
-            <Field name="rating" type="number" placeholder="от 0 до 5" min="0" max="5" />
+            <Field name="rating" type="number" placeholder="от 1 до 5" min="1" max="5" />
             <ErrorMessage component="p" name="rating" />
           </div>
           <div className={styleModal.text}>

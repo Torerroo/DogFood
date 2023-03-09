@@ -7,9 +7,8 @@ import favoriteIcon from './icons/favorite.png'
 import account from './icons/account.png'
 import { getUserInfoSelector, resetUserInfo } from '../../redux/slices/userInfoSlice'
 import { Search } from '../Search/Search'
-import { getCartProductsSelector } from '../../redux/slices/cartSlice'
-import { getFavoriteSelector } from '../../redux/slices/favoriteSlice'
-import { Modal } from '../Modal/Modal'
+import { getCartProductsSelector, resetCartInfo } from '../../redux/slices/cartSlice'
+import { getFavoriteSelector, resetFavoriteInfo } from '../../redux/slices/favoriteSlice'
 
 export function Header() {
   const navigate = useNavigate()
@@ -24,13 +23,12 @@ export function Header() {
 
   const logoutHandler = () => {
     dispatch(resetUserInfo())
+    dispatch(resetFavoriteInfo())
+    dispatch(resetCartInfo())
     navigate('/')
   }
   return (
     <header className="header">
-      <Modal>
-        <div>11111111111111111111111111111111111111111</div>
-      </Modal>
       <div className="header__container">
         <Logo />
         {searchVisable ? <Search /> : ''}

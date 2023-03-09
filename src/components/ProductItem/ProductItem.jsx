@@ -35,6 +35,13 @@ export function ProductItem({
   const discountPrice = price * ((100 - discount) / 100)
   return (
     <div className="product-item">
+      {discount ? (
+        <div className="product-item-discount">
+          -
+          {discount}
+          %
+        </div>
+      ) : ''}
       <img src={pictures} alt="product" />
       <div className="product-list">
         <h3>{name}</h3>

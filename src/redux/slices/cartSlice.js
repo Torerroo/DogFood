@@ -43,6 +43,9 @@ const cartSlice = createSlice({
         return id
       })
     },
+    resetCartInfo() {
+      return initState.cart
+    },
   },
 })
 
@@ -55,6 +58,7 @@ export const {
   changeStatusIsChecked,
   changeAllStatusOnTrue,
   changeAllStatusOnFalse,
+  resetCartInfo,
 } = cartSlice.actions
 
 export const getCartProductsSelector = (state) => state.cart

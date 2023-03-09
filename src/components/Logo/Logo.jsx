@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './Logo.css'
-import dog from './Dog.jpg'
+import dog from '../../images/Dog.jpg'
 
 export function Logo() {
   return (

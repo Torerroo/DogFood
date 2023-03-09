@@ -32,8 +32,8 @@ function FavoritesInner({ products }) {
   }
   return (
     <section className={FavoritesStyles.favorites}>
-      <div className={FavoritesStyles.favorites__title}>
-        У вас нету избранных товаров
+      <div className={FavoritesStyles.favorites__auth}>
+        <p>У вас нету избранных товаров</p>
         <p><Link to="../products">Каталог</Link></p>
       </div>
     </section>
