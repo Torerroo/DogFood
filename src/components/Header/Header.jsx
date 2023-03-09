@@ -1,14 +1,18 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import './Header.css'
 import { Link, useNavigate, useMatch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
 import { Logo } from '../Logo/Logo'
 import cartIcon from './icons/cart.png'
 import favoriteIcon from './icons/favorite.png'
 import account from './icons/account.png'
+import addProduct from './icons/addProduct.png'
 import { getUserInfoSelector, resetUserInfo } from '../../redux/slices/userInfoSlice'
 import { Search } from '../Search/Search'
 import { getCartProductsSelector, resetCartInfo } from '../../redux/slices/cartSlice'
 import { getFavoriteSelector, resetFavoriteInfo } from '../../redux/slices/favoriteSlice'
+import { AddNewProductModal } from './AddNewProductModal/AddNewProductModal'
 
 export function Header() {
   const navigate = useNavigate()
@@ -27,12 +31,26 @@ export function Header() {
     dispatch(resetCartInfo())
     navigate('/')
   }
+
+  const [isAddNewProductModalOpen, setIsAddNewProductModalOpen] = useState(false)
+
+  const openAddNewProductModalHandler = () => {
+    setIsAddNewProductModalOpen(true)
+  }
   return (
     <header className="header">
       <div className="header__container">
         <Logo />
         {searchVisable ? <Search /> : ''}
         <div className="header__container-menu">
+          {token ? (
+            <img
+              className="header__menu-addProduct"
+              onClick={openAddNewProductModalHandler}
+              src={addProduct}
+              alt="addProduct"
+            />
+          ) : ''}
           <Link to="./products">Каталог</Link>
           <Link to="./favorites" className="header__menu-favorite">
             <img src={favoriteIcon} alt="icon" />
@@ -46,6 +64,10 @@ export function Header() {
           <Link onClick={logoutHandler} to="./signin">{token ? 'Выход' : 'Вход'}</Link>
         </div>
       </div>
+      <AddNewProductModal
+        isAddNewProductModalOpen={isAddNewProductModalOpen}
+        setIsAddNewProductModalOpen={setIsAddNewProductModalOpen}
+      />
     </header>
   )
 }

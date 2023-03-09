@@ -78,3 +78,6 @@
     position: absolute;
     padding: 9px 5px;
   }
+  .header__menu-addProduct {
+    cursor: pointer;
+  }

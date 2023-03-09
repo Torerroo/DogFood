@@ -41,6 +41,7 @@ export function AddNewReviewModal({ setIsAddNewReviewModalOpen, isAddNewReviewMo
   const submitHandler = async (values) => {
     await addNewReview(values)
     queryClient.invalidateQueries(['reviews'])
+    queryClient.invalidateQueries(['product'])
     closeAddNewReviewModalHandler()
   }
 

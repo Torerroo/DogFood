@@ -51,13 +51,15 @@ function ProductDetailInner({
           <div className={styleProductDetail.containerRight}>
             <p>{product.description}</p>
             <p>{product.wight}</p>
-            <p>
-              Рейтинг:
-              {' '}
-              {middleProcentRating.toFixed(1)}
-              {' '}
-              / 5
-            </p>
+            {product.reviews.length ? (
+              <p>
+                Рейтинг:
+                {' '}
+                {middleProcentRating.toFixed(1)}
+                {' '}
+                / 5
+              </p>
+            ) : ''}
             <p>
               {product.discount ? (
                 <span>
@@ -173,6 +175,7 @@ export function ProductDetail() {
 
   const deleteReviewHandler = async (reviewID) => {
     await deleteReviewById(reviewID)
+    queryClient.invalidateQueries(['product'])
     queryClient.invalidateQueries(['reviews'])
   }
 
