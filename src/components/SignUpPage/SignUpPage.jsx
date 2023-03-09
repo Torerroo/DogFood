@@ -33,6 +33,7 @@ export function SignUpPage() {
       onSubmit={SubmitHandler}
     >
       <Form className="SignUpPage__container">
+        <h3>Регистрация</h3>
         <div>
           <Field name="email" type="email" placeholder="email here" />
           <ErrorMessage component="p" name="email" />

@@ -5,6 +5,9 @@
   align-items: center;
   gap: 15px;
 }
+.SignUpPage__container h3 {
+  font-size: 46px;
+}
 .SignUpPage__container input {
   height: 30px;
   border: 1px solid black;

@@ -50,6 +50,7 @@ export function SignInPage() {
       onSubmit={submitHandler}
     >
       <Form className="SignUpPage__container">
+        <h3>Авторизация</h3>
         <div>
           <Field name="email" type="email" placeholder="email here" />
           <ErrorMessage component="p" name="email" />
@@ -58,7 +59,7 @@ export function SignInPage() {
           <Field name="password" type="password" placeholder="password here" />
           <ErrorMessage component="p" name="password" />
         </div>
-        <button disabled={isLoading} type="submit">Авторизация</button>
+        <button disabled={isLoading} type="submit">Войти</button>
         {isError && (
         <p className="SignInPage-error">
           {error.message}
