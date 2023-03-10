@@ -59,7 +59,7 @@ export function ProductsPage() {
     enabled: !!token,
   })
 
-  let { products } = data
+  let products = data
   if (products) {
     if (currentFilterNameFromQuery) {
       products = getFilteredProducts(products, currentFilterNameFromQuery)
