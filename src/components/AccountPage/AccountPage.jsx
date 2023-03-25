@@ -4,7 +4,6 @@ import AccountStyles from './AccountPage.module.css'
 
 export function AccountPage() {
   const user = useSelector(getUserInfoSelector)
-  console.log(user)
   return (
     <section className={AccountStyles.account}>
       <div className={AccountStyles.account__container}>

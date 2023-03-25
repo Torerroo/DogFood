@@ -30,9 +30,13 @@ export const FILTER_QUERY_NAME = 'filterType'
 export const getFilteredProducts = ([...products], filterType) => {
   switch (filterType) {
     case LOW_PRICE:
-      return products.sort((a, b) => a.price - b.price)
+      return products.sort((a, b) => (
+        a.price * ((100 - a.discount) / 100)) - (b.price * ((100 - b.discount) / 100)
+      ))
     case HIGH_PRICE:
-      return products.sort((a, b) => b.price - a.price)
+      return products.sort((a, b) => (
+        b.price * ((100 - b.discount) / 100)) - (a.price * ((100 - a.discount) / 100)
+      ))
     case OLD_DATA:
       return products.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at))
     case NEW_DATA:
