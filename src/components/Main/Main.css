@@ -3,15 +3,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
+  font-size: 40px;
   color: black;
+  height: 250px;
+  text-align: center;
 }
-.main p {
-  font-size: 34px;
-}
-.main img {
-  width: 400px;
-}
-.main p:last-child {
-  font-size: 18px;
+.main span {
+  font-size: 44px;
 }
