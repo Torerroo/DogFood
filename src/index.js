@@ -64,7 +64,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  // { basename: '/DogFood' },
+  { basename: '/DogFood' },
 )
 
 root.render(
